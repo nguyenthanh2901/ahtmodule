@@ -9,7 +9,7 @@
 <div class="block review-add">
     <div class="block-title"><strong><?= $block->escapeHtml(__('Write Your Own Review')) ?></strong></div>
 <div class="block-content">
-<form action="<?= $block->escapeUrl('qanda/product/save') ?>" class="qa-form" method="post" id="qa-form" data-role="product-qa-form" data-bind="scope: 'qa-form'" data-mage-init='{"validation":{}}'>
+<form action="<?= $block->escapeUrl('question/product/save') ?>" class="qa-form" method="post" id="qa-form" data-role="product-qa-form" data-bind="scope: 'qa-form'" data-mage-init='{"validation":{}}'>
     <?= $block->getBlockHtml('formkey') ?>
     <?= $block->getChildHtml('form_fields_before') ?>
     <fieldset class="fieldset question-fieldset" data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>">
