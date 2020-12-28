@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<page layout="1column"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="product.info.details">
+            <block class="Magento\Framework\View\Element\Template" name="question.tab" as="question_tab" template="AHT_Question::product/question.phtml" group="detailed_info">
+                <arguments>
+                    <argument translate="true" name="title" xsi:type="string">Question - Answer</argument>
+                    <argument name="sort_order" xsi:type="string">00</argument>
+                </arguments>
+                <block class="AHT\Question\Block\Product\View\Form" name="question.form" as="question.form" template="AHT_Question::product/question_form.phtml" />
+            </block>
+        </referenceBlock>
+    </body>
+</page>
