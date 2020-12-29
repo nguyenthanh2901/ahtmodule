@@ -19,9 +19,9 @@ class QuestionRepository implements \AHT\Question\Api\QuestionRepositoryInterfac
         $this->_request = $request;
     }
 
-    public function get($QuestionId)
+    public function getId($questionId)
     {
-        $id = (int) $QuestionId;
+        $id = (int) $questionId;
         $model = $this->_questionFactory->create();
         $this->_questionResource->load($model, $id);
         return $model->getData();
@@ -33,9 +33,9 @@ class QuestionRepository implements \AHT\Question\Api\QuestionRepositoryInterfac
         return $collection->getData();
     }
 
-    public function save(QuestionInterface $Question)
+    public function save(QuestionInterface $question)
     {
-        $this->_questionResource->save($Question);
-        return $Question->getData();
+        $this->_questionResource->save($question);
+        return $question->getData();
     }
 }

@@ -1,11 +1,11 @@
 <?php
 namespace AHT\Question\Block\Product\View;
 
-class Form extends \Magento\Framework\View\Element\Template
+class FormQuestion extends \Magento\Framework\View\Element\Template
 {
     private $_registry;
-    private $_customerSession;
     protected $_storeManager;
+    private $_customerSession;
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Framework\Registry $registry,
@@ -19,14 +19,16 @@ class Form extends \Magento\Framework\View\Element\Template
         parent::__construct($context, $data);
     }
 
-    public function getCurrentProduct()
-    {
-        return $this->_registry->registry('current_product');
-    }
     public function getCustomerSession()
     {
         return $this->_customerSession;
     }
+    
+    public function getCurrentProduct()
+    {        
+        return $this->_registry->registry('current_product');
+    }    
+
     public function getStoreManager()
     {
         return $this->_storeManager;

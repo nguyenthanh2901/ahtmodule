@@ -1,20 +1,9 @@
 <?php
 namespace AHT\Question\Model;
 
-use \AHT\Question\Api\Data\QuestionInterface;
-
 class Question extends \Magento\Framework\Model\AbstractModel implements \AHT\Question\Api\Data\QuestionInterface
 {
 
-    /**
-     * Undocumented function
-     *
-     * @param \Magento\Framework\Model\Context $context
-     * @param \Magento\Framework\Registry $registry
-     * @param \Magento\Framework\Model\ResourceModel\AbstractResource $resource
-     * @param \Magento\Framework\Data\Collection\AbstractDb $resourceCollection
-     * @param array $data
-     */
     public function __construct(
         \Magento\Framework\Model\Context $context,
         \Magento\Framework\Registry $registry,
@@ -56,108 +45,55 @@ class Question extends \Magento\Framework\Model\AbstractModel implements \AHT\Qu
     public function getQuestion() {
         return $this->getData("question");
     }
-    /**
-     * Undocumented function
-     *
-     * @return string
-     */
+    
     public function getAnswer() {
         return $this->getData("answer");
     }
-    /**
-     * Undocumented function
-     *
-     * @return string
-     */
+   
     public function getCreatedAt() {
         return $this->getData("created_at");
     }
-    /**
-     * Undocumented function
-     *
-     * @return string
-     */
+    
     public function getUpdatedAt() {
         return $this->getData("updated_at");
     }
-    /**
-     * Undocumented function
-     *
-     * @return string
-     */
+    
  
     public function getQuestionId() {
         return $this->getData("question_id");
 
     }
-    /**
-     * Undocumented function
-     *
-     * @return int
-     */
+   
     public function getStoreId() {
         return $this->getData("store_id");
 
     }
-    /**
-     * Undocumented function
-     *
-     * @return int
-     */
+   
     public function getProductId() {
         return $this->getData("product_id");
     }
-    /**
-     * Undocumented function
-     *
-     * @return int
-     */
+   
     public function getUserId() {
         return $this->getData("user_id");
     }
-    /**
-     * Undocumented function
-     *
-     * @param string $name
-     * @return null
-     */
+    
     public function setName($name) {
         return $this->setData("name", $name);
     }
-    /**
-     * Undocumented function
-     *
-     * @param int
-     * @return null
-     */
-    public function setProductId($productId) {
-        return $this->setData("product_id", $productId);
-    }
-    /**
-     * Undocumented function
-     *
-     * @param string $email
-     * @return null
-     */
+    
     public function setEmail($email) {
         return $this->setData("email", $email);
     }
-    /**
-     * Undocumented function
-     *
-     * @param string $question
-     * @return null
-     */
+
+    public function setProductId($productId) {
+        return $this->setData("product_id", $productId);
+    }  
+    
     public function setQuestion($question) {
         return $this->setData("question", $question);
 
     }
-    /**
-     * Undocumented function
-     *
-     * @param string $answer
-     * @return null
-     */
+   
     public function setAnswer($answer) {
         return $this->setData("answer", $answer);
     }
