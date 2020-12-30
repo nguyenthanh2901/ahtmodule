@@ -3,7 +3,7 @@
     <acl>
         <resources>
             <resource id="Magento_Backend::admin">
-                <resource id="AHT_Question::question" title="Pending Questions" sortOrder="10">
+                <resource id="AHT_Question::question" title="Questions" sortOrder="10">
                 </resource>
             </resource>
         </resources>

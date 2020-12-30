@@ -1,0 +1,17 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="qaa_question_listing_data_source" xsi:type="string">AHT\Question\Model\ResourceModel\Question\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="AHT\Question\Model\ResourceModel\Question\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">aht_question</argument>
+            <argument name="resourceModel" xsi:type="string">AHT\Question\Model\ResourceModel\Question</argument>
+        </arguments>
+    </virtualType>
+    <preference for="AHT\Question\Api\QuestionRepositoryInterface" type="AHT\Question\Model\QuestionRepository"/>
+    <preference for="AHT\Question\Api\Data\QuestionInterface" type="AHT\Question\Model\Question"/>
+</config>

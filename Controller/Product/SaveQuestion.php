@@ -8,12 +8,12 @@ class SaveQuestion extends \Magento\Framework\App\Action\Action
     protected $_questionResource;
     protected $_coreRegistry;
     protected $resultRedirect;
-	protected $urlInterface;
-	protected $_redirect;
+    protected $urlInterface;
+    protected $_redirect;
     protected $_customerSession;
     protected $_storeManager;
-	protected $messageManager;
-	
+    protected $messageManager;
+
     private $_cacheTypeList;
     private $_cacheFrontendPool;
 
@@ -40,15 +40,15 @@ class SaveQuestion extends \Magento\Framework\App\Action\Action
         $this->_cacheTypeList = $cacheTypeList;
         $this->_cacheFrontendPool = $cacheFrontendPool;
         $this->_redirect = $resultRedirect;
-		$this->messageManager = $context->getMessageManager();
-		
+        $this->messageManager = $context->getMessageManager();
+
         return parent::__construct($context);
     }
 
     public function execute()
     {
         $question = $this->_questionFactory->create();
-        $customerID = $this->_customerSession->getCustomerId();
+        // $customerID = $this->_customerSession->getCustomerId();
         // print_r($customerID);die;
         try {
             if (isset($_POST['submit'])) {
@@ -59,11 +59,7 @@ class SaveQuestion extends \Magento\Framework\App\Action\Action
                 $question->setStoreId($this->_storeManager->getStore()->getId());
                 $question->setCreatedAt(date('Y-m-d H:i:s'));
                 $question->setUpdatedAt(date('Y-m-d H:i:s'));
-                if (isset($customerID)) {
-                    $question->setUserId($this->_customerSession->getCustomerId());
-                } else {
-                    $question->setUserId('0');
-                }
+                $question->setUserId($this->_customerSession->getCustomerId());
             }
             $this->_questionResource->save($question);
             $this->messageManager->addSuccessMessage("Your question has been saved");
@@ -78,7 +74,7 @@ class SaveQuestion extends \Magento\Framework\App\Action\Action
         foreach ($this->_cacheFrontendPool as $cacheFrontend) {
             $cacheFrontend->getBackend()->clean();
         }
-		// print_r($this->_redirect->getRefererUrl());die;
+        // print_r($this->_redirect->getRefererUrl());die;
         $resultRedirect = $this->resultRedirectFactory->create();
         $resultRedirect->setPath($this->_redirect->getRefererUrl());
         return $resultRedirect;

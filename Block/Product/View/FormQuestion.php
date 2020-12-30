@@ -20,7 +20,8 @@ class FormQuestion extends \Magento\Framework\View\Element\Template
     }
 
     public function getCustomerSession()
-    {
+    { 
+        // var_dump($this->_customerSession->isLoggedIn());die;
         return $this->_customerSession;
     }
     

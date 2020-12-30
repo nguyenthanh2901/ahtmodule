@@ -2,6 +2,9 @@
 <div class="block review-add">
     <div class="block-title"><strong><?= $block->escapeHtml(__('Write Your Own Review')) ?></strong></div>
 <div class="block-content">
+
+
+<?php if ($block->getCustomerSession()->isLoggedIn()) : ?>
 <form action="<?= $block->escapeUrl('question/product/savequestion') ?>" class="qa-form" method="post" id="qa-form" data-role="product-qa-form" data-bind="scope: 'qa-form'" data-mage-init='{"validation":{}}'>
     <?= $block->getBlockHtml('formkey') ?>
     <?= $block->getChildHtml('form_fields_before') ?>
@@ -24,6 +27,12 @@
         </div>
     </div>
 </form>
-
+<?php else : ?>
+    <div class="message info notlogged" id="review-form">
+        <div>
+            <?= $block->escapeHtml(__('Only registered users can write questions. Please <a href="%1">Sign in</a> or <a href="%2">create an account</a>', $block->getLoginLink(), $block->getRegisterUrl()), ['a']) ?>
+        </div>
+    </div>
+<?php endif ?>
 </div>
 </div>

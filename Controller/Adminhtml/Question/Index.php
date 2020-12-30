@@ -19,8 +19,6 @@ class Index extends \Magento\Backend\App\Action
     {
         $resultPage = $this->resultPageFactory->create();
         $resultPage->setActiveMenu('AHT_Question::question');
-        // $resultPage->addBreadcrumb(__('Question pending'), __('Question Pending'));
-        // $resultPage->addBreadcrumb(__('Manage Question Pending'), __('Manage Question Pending'));
         $resultPage->getConfig()->getTitle()->prepend(__('Questions'));
         return $resultPage;
     }
