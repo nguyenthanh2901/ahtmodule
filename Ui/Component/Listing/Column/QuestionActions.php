@@ -20,8 +20,8 @@ class QuestionActions extends Column
     /**
      * Url path
      */
-    const URL_PATH_EDIT = 'qaa/question/edit';
-    const URL_PATH_DELETE = 'qaa/question/delete';
+    const URL_PATH_EDIT = 'questionadmin/question/edit';
+    const URL_PATH_DELETE = 'questionadmin/question/delete';
 
     /**
      * @var UrlInterface
@@ -58,14 +58,14 @@ class QuestionActions extends Column
     {
         if (isset($dataSource['data']['items'])) {
             foreach ($dataSource['data']['items'] as & $item) {
-                if (isset($item['qa_id'])) {
+                if (isset($item['question_id'])) {
                     $question = $this->getEscaper()->escapeHtmlAttr($item['question']);
                     $item[$this->getData('name')] = [
                         'edit' => [
                             'href' => $this->urlBuilder->getUrl(
                                 static::URL_PATH_EDIT,
                                 [
-                                    'qa_id' => $item['qa_id'],
+                                    'question_id' => $item['question_id'],
                                 ]
                             ),
                             'label' => __('Edit'),
@@ -75,7 +75,7 @@ class QuestionActions extends Column
                             'href' => $this->urlBuilder->getUrl(
                                 static::URL_PATH_DELETE,
                                 [
-                                    'qa_id' => $item['qa_id'],
+                                    'question_id' => $item['question_id'],
                                 ]
                             ),
                             'label' => __('Delete'),

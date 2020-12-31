@@ -16,7 +16,7 @@
     </argument>
     <settings>
         <buttons>
-            <button name="save" class="AHT\QA\Block\Adminhtml\Question\Edit\SaveButton"/>
+            <button name="save" class="AHT\Question\Block\Adminhtml\Question\Edit\SaveButton"/>
             <button name="back" class="Magento\Cms\Block\Adminhtml\Block\Edit\BackButton"/>
         </buttons>
         <namespace>qaa_question_form</namespace>
@@ -34,10 +34,10 @@
         <settings>
             <submitUrl path="qaa/question/save"/>
         </settings>
-        <dataProvider class="AHT\QA\Model\Question\DataProvider" name="question_form_data_source">
+        <dataProvider class="AHT\Question\Model\Question\DataProvider" name="question_form_data_source">
             <settings>
-                <requestFieldName>qa_id</requestFieldName>
-                <primaryFieldName>qa_id</primaryFieldName>
+                <requestFieldName>question_id</requestFieldName>
+                <primaryFieldName>question_id</primaryFieldName>
             </settings>
         </dataProvider>
     </dataSource>
@@ -54,7 +54,7 @@
             <settings>
                 <dataType>text</dataType>
                 <visible>false</visible>
-                <dataScope>qa_id</dataScope>
+                <dataScope>question_id</dataScope>
             </settings>
         </field>
         <!-- <field name="status" formElement="select">
@@ -218,7 +218,7 @@
                 <dataScope>answer</dataScope>
             </settings>
         </field>
-        <field name="image" formElement="imageUploader">
+        <!-- <field name="image" formElement="imageUploader">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">index</item>
@@ -246,8 +246,7 @@
                     </settings>
                 </imageUploader>
             </formElements>
-        </field>
+        </field> -->
         <!-- <field name="answer" formElement="wysiwyg"><argument name="data" xsi:type="array"><item name="config" xsi:type="array"><item name="source" xsi:type="string">block</item></item></argument><settings><additionalClasses><class name="admin__field-wide">true</class></additionalClasses><label/><dataScope>answer</dataScope></settings><formElements><wysiwyg><settings><wysiwyg>true</wysiwyg></settings></wysiwyg></formElements></field> -->
     </fieldset>
 </form>
-
