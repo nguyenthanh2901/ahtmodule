@@ -31,7 +31,7 @@
 <?php else : ?>
     <div class="message info notlogged" id="review-form">
         <div>
-            <?= $block->escapeHtml(__('Only registered users can write questions. Please <a href="%1">Sign in</a> or <a href="%2">create an account</a>', $block->getLoginLink(), $block->getRegisterUrl()), ['a']) ?>
+            <?= $block->escapeHtml(__('Only registered users can write questions. ')) ?>
         </div>
     </div>
 <?php endif ?>

@@ -32,7 +32,7 @@
             </item>
         </argument>
         <settings>
-            <submitUrl path="qaa/question/save"/>
+            <submitUrl path="questionadmin/question/save"/>
         </settings>
         <dataProvider class="AHT\Question\Model\Question\DataProvider" name="question_form_data_source">
             <settings>

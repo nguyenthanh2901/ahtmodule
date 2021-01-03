@@ -25,7 +25,7 @@ class Index extends CustomerController
         // if ($block = $resultPage->getLayout()->getBlock('question_customer_list')) {
         //     $block->setRefererUrl($this->_redirect->getRefererUrl());
         // }
-        $resultPage->getConfig()->getTitle()->set(__('My recent Questions'));
+        $resultPage->getConfig()->getTitle()->set(__('My Questions'));
         return $resultPage;
     }
 }

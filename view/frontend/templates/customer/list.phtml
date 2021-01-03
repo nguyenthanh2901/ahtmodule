@@ -8,7 +8,7 @@
                     <th scope="col" class="col date"><?= $block->escapeHtml(__('Created')) ?></th>
                     <th scope="col" class="col item"><?= $block->escapeHtml(__('Product Name')) ?></th>
                     <th scope="col" class="col question"><?= $block->escapeHtml(__('Question')) ?></th>
-                    <th scope="col" class="col answer"><?= $block->escapeHtml(__('Answer')) ?></th>
+                    <th scope="col" class="col answer"><?= $block->escapeHtml(__('Answer of Admin')) ?></th>
                    
                 </tr>
             </thead>
@@ -24,7 +24,7 @@
                     <td data-th="<?= $block->escapeHtmlAttr(__('Question')) ?>" class="col question">
                         <?= $block->escapeHtml($question->getQuestion()) ?>
                     </td>
-                    <td data-th="<?= $block->escapeHtmlAttr(__('Answer')) ?>" class="col answer">
+                    <td data-th="<?= $block->escapeHtmlAttr(__('Answer of Admin')) ?>" class="col answer">
                         <?= $block->escapeHtml($question->getAnswer()) ?>
                     </td>
                    
