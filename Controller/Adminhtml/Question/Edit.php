@@ -5,12 +5,12 @@
  */
 namespace AHT\Question\Controller\Adminhtml\Question;
 
-use Magento\Framework\App\Action\HttpGetActionInterface;
+use Magento\Backend\App\Action\Context;
+use Magento\Framework\Controller\Result\JsonFactory;
+use AHT\Question\Model\QuestionFactory;
+use AHT\Question\Model\ResourceModel\Question;
 
-/**
- * Edit CMS block action.
- */
-class Edit extends \Magento\Backend\App\Action implements HttpGetActionInterface
+class Edit extends \Magento\Backend\App\Action
 {
     /**
      * Authorization level of a basic admin session
@@ -18,79 +18,82 @@ class Edit extends \Magento\Backend\App\Action implements HttpGetActionInterface
      * @see _isAllowed()
      */
     const ADMIN_RESOURCE = 'AHT_Question::question';
-    /**
-     * Core registry
-     *
-     * @var \Magento\Framework\Registry
-     */
-    protected $_coreRegistry;
-    /**
-     * @var \Magento\Framework\View\Result\PageFactory
-     */
-    protected $resultPageFactory;
 
     /**
-     * @param \Magento\Backend\App\Action\Context $context
-     * @param \Magento\Framework\Registry $coreRegistry
-     * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
+     * @var \Magento\Cms\Api\BlockRepositoryInterface
+     */
+    protected $questionFactory;
+    protected $questionResource;
+
+    /**
+     * @var \Magento\Framework\Controller\Result\JsonFactory
+     */
+    protected $jsonFactory;
+
+    /**
+     * @param Context $context
+     * @param BlockRepository $blockRepository
+     * @param JsonFactory $jsonFactory
      */
     public function __construct(
-        \Magento\Backend\App\Action\Context $context,
-        \Magento\Framework\Registry $coreRegistry,
-        \Magento\Framework\View\Result\PageFactory $resultPageFactory
+        Context $context,
+        QuestionFactory $questionFactory,
+        Question $questionResource,
+        JsonFactory $jsonFactory
     ) {
-        $this->resultPageFactory = $resultPageFactory;
-        $this->_coreRegistry = $coreRegistry;
         parent::__construct($context);
-    }
-    /**
-     * Init page
-     *
-     * @param \Magento\Backend\Model\View\Result\Page $resultPage
-     * @return \Magento\Backend\Model\View\Result\Page
-     */
-    protected function initPage($resultPage)
-    {
-        $resultPage->setActiveMenu('AHT_Question::question')
-            ->addBreadcrumb(__('Question'), __('Question'))
-            ->addBreadcrumb(__('Question Pendings'), __('Question Pendings'));
-        return $resultPage;
+        $this->questionFactory = $questionFactory;
+        $this->questionResource = $questionResource;
+        $this->jsonFactory = $jsonFactory;
     }
 
     /**
-     * Edit CMS block
-     *
      * @return \Magento\Framework\Controller\ResultInterface
-     * @SuppressWarnings(PHPMD.NPathComplexity)
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function execute()
     {
-        // 1. Get ID and create model
-        $id = $this->getRequest()->getParam('question_id');
-        $model = $this->_objectManager->create(\AHT\Question\Model\Question::class);
+        /** @var \Magento\Framework\Controller\Result\Json $resultJson */
+        $resultJson = $this->jsonFactory->create();
+        $error = false;
+        $messages = [];
 
-        // 2. Initial checking
-        if ($id) {
-            $model->load($id);
-            if (!$model->getId()) {
-                $this->messageManager->addErrorMessage(__('This question no longer exists.'));
-                /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
-                $resultRedirect = $this->resultRedirectFactory->create();
-                return $resultRedirect->setPath('*/*/');
+        if ($this->getRequest()->getParam('isAjax')) {
+            $postItems = $this->getRequest()->getParam('items', []);
+            if (!count($postItems)) {
+                $messages[] = __('Please correct the data sent.');
+                $error = true;
+            } else {
+                foreach (array_keys($postItems) as $blockId) {
+                    /** @var \Magento\Cms\Model\Block $block */
+                    $block = $this->questionFactory->create();
+                    $this->questionResource->load($block,$blockId);
+                    try {
+                        $block->setData(array_merge($block->getData(), $postItems[$blockId]));
+                        $this->questionResource->save($block);
+                    } catch (\Exception $e) {
+                        $messages[] = '[Question ID: ' . $block->getId() . '] ' . __($e->getMessage());
+                        $error = true;
+                    }
+                }
             }
         }
 
-        $this->_coreRegistry->register('question', $model);
+        return $resultJson->setData([
+            'messages' => $messages,
+            'error' => $error
+        ]);
+    }
 
-        // 5. Build edit form
-        /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
-        $resultPage = $this->resultPageFactory->create();
-        $this->initPage($resultPage)->addBreadcrumb(
-            $id ? __('Edit Question') : __('New Block'),
-            $id ? __('Edit Question') : __('New Block')
-        );
-        $resultPage->getConfig()->getTitle()->prepend(__('Question Detail'));
-        $resultPage->getConfig()->getTitle()->prepend($model->getId() ? 'Question Detail' : __('New Question'));
-        return $resultPage;
+    /**
+     * Add block title to error message
+     *
+     * @param BlockInterface $block
+     * @param string $errorText
+     * @return string
+     */
+    protected function getErrorWithBlockId(BlockInterface $block, $errorText)
+    {
+        return '[Block ID: ' . $block->getId() . '] ' . $errorText;
     }
 }

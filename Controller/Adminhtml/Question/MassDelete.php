@@ -12,16 +12,10 @@ use Magento\Backend\App\Action\Context;
 use Magento\Ui\Component\MassAction\Filter;
 use AHT\Question\Model\ResourceModel\Question\CollectionFactory;
 
-/**
- * Class MassDelete
- */
+
 class MassDelete extends \Magento\Backend\App\Action implements HttpPostActionInterface
 {
-    /**
-     * Authorization level of a basic admin session
-     *
-     * @see _isAllowed()
-     */
+
     const ADMIN_RESOURCE = 'AHT_Question::question';
 
     /**
@@ -54,14 +48,14 @@ class MassDelete extends \Magento\Backend\App\Action implements HttpPostActionIn
      */
     public function execute()
     {
+       
         $collection = $this->filter->getCollection($this->collectionFactory->create());
-        $collectionSize = $collection->getSize();
-
+        // var_dump($collection);die;
         foreach ($collection as $block) {
             $block->delete();
-        }
+        } 
 
-        $this->messageManager->addSuccessMessage(__('A total of %1 record(s) have been deleted.', $collectionSize));
+        $this->messageManager->addSuccessMessage(__('The records have been deleted.'));
 
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);

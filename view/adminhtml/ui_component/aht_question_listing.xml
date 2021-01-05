@@ -1,15 +1,15 @@
 <listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
-            <item name="provider" xsi:type="string">qaa_question_listing.qaa_question_listing_data_source</item>
-            <item name="deps" xsi:type="string">qaa_question_listing.qaa_question_listing_data_source</item>
+            <item name="provider" xsi:type="string">aht_question_listing.aht_question_listing_data_source</item>
+            <item name="deps" xsi:type="string">aht_question_listing.aht_question_listing_data_source</item>
         </item>
         <item name="spinner" xsi:type="string">qaa_question_columns</item>
     </argument>
-    <dataSource name="qaa_question_listing_data_source">
+    <dataSource name="aht_question_listing_data_source">
         <argument name="dataProvider" xsi:type="configurableObject">
             <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
-            <argument name="name" xsi:type="string">qaa_question_listing_data_source</argument>
+            <argument name="name" xsi:type="string">aht_question_listing_data_source</argument>
             <argument name="primaryFieldName" xsi:type="string">question_id</argument>
             <argument name="requestFieldName" xsi:type="string">question_id</argument>
             <argument name="data" xsi:type="array">
@@ -65,33 +65,11 @@
                     <label translate="true">Delete</label>
                 </settings>
             </action>
-            <action name="enable">
-                <settings>
-                    <confirm>
-                        <message translate="true">Are you sure you want enable items?</message>
-                        <title translate="true">Enable items</title>
-                    </confirm>
-                    <url path="questionadmin/question/massEnable"/>
-                    <type>enable</type>
-                    <label translate="true">Enable</label>
-                </settings>
-            </action>
-            <action name="disable">
-                <settings>
-                    <confirm>
-                        <message translate="true">Are you sure you want disable items?</message>
-                        <title translate="true">Disable items</title>
-                    </confirm>
-                    <url path="qaa/question/massDisable"/>
-                    <type>disable</type>
-                    <label translate="true">Disable</label>
-                </settings>
-            </action>
             <action name="edit">
                 <settings>
                     <callback>
                         <target>editSelected</target>
-                        <provider>qaa_question_listing.qaa_question_listing.qaa_question_columns_editor</provider>
+                        <provider>aht_question_listing.aht_question_listing.qaa_question_columns_editor</provider>
                     </callback>
                     <type>edit</type>
                     <label translate="true">Edit</label>
@@ -104,17 +82,16 @@
         <settings>
             <editorConfig>
                 <param name="clientConfig" xsi:type="array">
-                    <item name="saveUrl" xsi:type="url" path="qaa/question/inlineEdit"/>
+                    <item name="saveUrl" xsi:type="url" path="questionadmin/question/edit"/>
                     <item name="validateBeforeSave" xsi:type="boolean">false</item>
                 </param>
-                <param name="indexField" xsi:type="string">qa_id</param>
-                <!--  Tat bat inline edit  -->
+                <param name="indexField" xsi:type="string">question_id</param>
                 <param name="enabled" xsi:type="boolean">true</param>
-                <param name="selectProvider" xsi:type="string">qaa_question_listing.qaa_question_listing.qaa_question_columns.ids</param>
+                <param name="selectProvider" xsi:type="string">aht_question_listing.aht_question_listing.qaa_question_columns.ids</param>
             </editorConfig>
             <childDefaults>
                 <param name="fieldAction" xsi:type="array">
-                    <item name="provider" xsi:type="string">qaa_question_listing.qaa_question_listing.qaa_question_columns_editor</item>
+                    <item name="provider" xsi:type="string">aht_question_listing.aht_question_listing.qaa_question_columns_editor</item>
                     <item name="target" xsi:type="string">startEdit</item>
                     <item name="params" xsi:type="array">
                         <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>

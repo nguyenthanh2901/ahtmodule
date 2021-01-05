@@ -20,7 +20,6 @@ class QuestionActions extends Column
     /**
      * Url path
      */
-    const URL_PATH_EDIT = 'questionadmin/question/edit';
     const URL_PATH_DELETE = 'questionadmin/question/delete';
 
     /**
@@ -61,16 +60,6 @@ class QuestionActions extends Column
                 if (isset($item['question_id'])) {
                     $question = $this->getEscaper()->escapeHtmlAttr($item['question']);
                     $item[$this->getData('name')] = [
-                        'edit' => [
-                            'href' => $this->urlBuilder->getUrl(
-                                static::URL_PATH_EDIT,
-                                [
-                                    'question_id' => $item['question_id'],
-                                ]
-                            ),
-                            'label' => __('Edit'),
-                            '__disableTmpl' => true,
-                        ],
                         'delete' => [
                             'href' => $this->urlBuilder->getUrl(
                                 static::URL_PATH_DELETE,
