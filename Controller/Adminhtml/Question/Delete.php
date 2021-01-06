@@ -10,11 +10,6 @@ use Magento\Framework\App\Action\HttpPostActionInterface;
 
 class Delete extends \Magento\Cms\Controller\Adminhtml\Block implements HttpPostActionInterface
 {
-    /**
-     * Delete action
-     *
-     * @return \Magento\Framework\Controller\ResultInterface
-     */
     public function execute()
     {
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
@@ -29,7 +24,6 @@ class Delete extends \Magento\Cms\Controller\Adminhtml\Block implements HttpPost
                 return $resultRedirect->setPath('*/*/');
             } catch (\Exception $e) {
                 $this->messageManager->addErrorMessage($e->getMessage());
-                return $resultRedirect->setPath('*/*/edit', ['question_id' => $id]);
             }
         }
         $this->messageManager->addErrorMessage(__('We can\'t find a block to delete.'));

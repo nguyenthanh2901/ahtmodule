@@ -88,6 +88,10 @@ class Question extends \Magento\Framework\Model\AbstractModel implements \AHT\Qu
     public function setProductId($productId) {
         return $this->setData("product_id", $productId);
     }  
+
+    public function setProductName($productName) {
+        return $this->setData("productname", $productName);
+    }  
     
     public function setQuestion($question) {
         return $this->setData("question", $question);

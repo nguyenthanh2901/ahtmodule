@@ -4,22 +4,22 @@
     <div class="block-title"><strong><?= $block->escapeHtml(__('Write Your Own Review')) ?></strong></div>
 <div class="block-content">
 
-
 <?php if ($block->getCustomerSession()->isLoggedIn()) : ?>
-<form action="<?= $block->escapeUrl('question/product/savequestion') ?>" class="qa-form" method="post" id="qa-form" data-role="product-qa-form" data-bind="scope: 'qa-form'" data-mage-init='{"validation":{}}'>
+<form action="<?= $block->escapeUrl('question/product/savequestion') ?>" class="aht-form" method="post" id="aht-form" data-role="product-aht-form" data-bind="scope: 'aht-form'" data-mage-init='{"validation":{}}'>
     <?= $block->getBlockHtml('formkey') ?>
     <?= $block->getChildHtml('form_fields_before') ?>
     <fieldset class="fieldset question-fieldset" data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>">
         <div class="field field-question required">
             <label for="" class="label"><span><?= $block->escapeHtml(__('Your Name')) ?></span></label>
-            <input name="name" data-validate="{required:true}" data-bind="value: qa().detail" type="text">           
+            <input name="name" data-validate="{required:true}" data-bind="value: aht().detail" type="text">           
             <label for="" class="label"><span><?= $block->escapeHtml(__('Your Email')) ?></span></label>
-            <input name="email" data-validate="{required:true}" data-bind="value: qa().detail" type="text">
+            <input name="email" data-validate="{required:true}" data-bind="value: aht().detail" type="text">
             <label for="" class="label"><span><?= $block->escapeHtml(__('Your Question')) ?></span></label>
             <div class="control">
-                <textarea name="question" id="" cols="5" rows="3" data-validate="{required:true}" data-bind="value: qa().detail"></textarea>
+                <textarea name="question" id="" cols="5" rows="3" data-validate="{required:true}" data-bind="value: aht().detail"></textarea>
             </div>
             <input hidden type="text" name="productid" value="<?= $block->getCurrentProduct()->getId()?>" />
+            <input hidden type="text" name="productname" value="<?= $block->getCurrentProduct()->getName()?>" />
         </div>
     </fieldset>
     <div class="actions-toolbar review-form-actions">

@@ -62,6 +62,13 @@ class InstallSchema implements InstallSchemaInterface
                     'STATUS'
                 )
                 ->addColumn(
+                    'productname',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    '64k',
+                    ['nullable' => false, 'default'=>''],
+                    'productname'
+                )
+                ->addColumn(
                     'product_id',
                     \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
                     null,

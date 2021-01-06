@@ -48,14 +48,13 @@ class SaveQuestion extends \Magento\Framework\App\Action\Action
     public function execute()
     {
         $question = $this->_questionFactory->create();
-        // $customerID = $this->_customerSession->getCustomerId();
-        // print_r($customerID);die;
         try {
             if (isset($_POST['submit'])) {
                 $question->setName($this->getRequest()->getParam("name"));
                 $question->setEmail($this->getRequest()->getParam("email"));
                 $question->setQuestion($this->getRequest()->getParam("question"));
                 $question->setProductId($this->getRequest()->getParam("productid"));
+                $question->setProductName($this->getRequest()->getParam("productname"));
                 $question->setStoreId($this->_storeManager->getStore()->getId());
                 $question->setCreatedAt(date('Y-m-d H:i:s'));
                 $question->setUpdatedAt(date('Y-m-d H:i:s'));
