@@ -22,25 +22,17 @@ class Delete extends \Magento\Cms\Controller\Adminhtml\Block implements HttpPost
         $id = $this->getRequest()->getParam('question_id');
         if ($id) {
             try {
-                // init model
                 $model = $this->_objectManager->create(\AHT\Question\Model\Question::class);
                 $model->load($id);
-                // delete
                 $model->delete();
-                // success message
                 $this->messageManager->addSuccessMessage(__('You have deleted the question.'));
-                // go to grid
                 return $resultRedirect->setPath('*/*/');
             } catch (\Exception $e) {
-                // error message
                 $this->messageManager->addErrorMessage($e->getMessage());
-                // go back to edit form
                 return $resultRedirect->setPath('*/*/edit', ['question_id' => $id]);
             }
         }
-        // display error message
         $this->messageManager->addErrorMessage(__('We can\'t find a block to delete.'));
-        // go to grid
         return $resultRedirect->setPath('*/*/');
     }
 }

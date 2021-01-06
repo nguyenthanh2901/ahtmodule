@@ -5,10 +5,10 @@
  */
 namespace AHT\Question\Controller\Adminhtml\Question;
 
-use Magento\Backend\App\Action\Context;
-use Magento\Framework\Controller\Result\JsonFactory;
 use AHT\Question\Model\QuestionFactory;
 use AHT\Question\Model\ResourceModel\Question;
+use Magento\Backend\App\Action\Context;
+use Magento\Framework\Controller\Result\JsonFactory;
 
 class Edit extends \Magento\Backend\App\Action
 {
@@ -67,7 +67,7 @@ class Edit extends \Magento\Backend\App\Action
                 foreach (array_keys($postItems) as $blockId) {
                     /** @var \Magento\Cms\Model\Block $block */
                     $block = $this->questionFactory->create();
-                    $this->questionResource->load($block,$blockId);
+                    $this->questionResource->load($block, $blockId);
                     try {
                         $block->setData(array_merge($block->getData(), $postItems[$blockId]));
                         $this->questionResource->save($block);
