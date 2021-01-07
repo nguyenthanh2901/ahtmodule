@@ -5,8 +5,8 @@
  */
 namespace AHT\Question\Controller\Customer;
 
-use Magento\Review\Controller\Customer as CustomerController;
 use Magento\Framework\Controller\ResultFactory;
+use Magento\Review\Controller\Customer as CustomerController;
 
 class Index extends CustomerController
 {

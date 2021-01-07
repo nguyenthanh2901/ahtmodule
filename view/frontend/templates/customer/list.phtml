@@ -1,5 +1,31 @@
+<?php
+    $token = "9iecwn9qk1vh0io1i5rq9y87icmx045d";
+    $url = 'http://localhost/module-aht/rest/default/V1/getList/';
+    $ch = curl_init($url);
 
-<?php if (count($block->getQuestions())) : ?>
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ["Content-Type: application/json", "Authorization: Bearer " . json_decode($token)]);
+
+    $result = curl_exec($ch);
+
+    $result = json_decode($result);
+
+    $tests =[];
+    foreach ($block->getQuestions() as $question) {
+        $temp = $question->getUserId();
+    }
+
+    foreach ($result as $test) {
+        if ($temp==$test->user_id) {
+            array_push($tests, $test);
+        }
+    }
+?>
+
+<?php if (count($result)) : ?>
     <div class="table-wrapper questions">
         <table class="data table table-questions" id="my-questions-table">
             <caption class="table-caption"><?= $block->escapeHtml(__('Product questions')) ?></caption>
@@ -13,19 +39,19 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($block->getQuestions() as $question) : ?>
+                <?php foreach ($tests as $question) : ?>
                 <tr>
-                    <td data-th="<?= $block->escapeHtmlAttr(__('Created')) ?>" class="col date"><?= $block->escapeHtml($block->dateFormat($question->getCreatedAt())) ?></td>
+                    <td data-th="<?= $block->escapeHtmlAttr(__('Created')) ?>" class="col date"><?= $block->escapeHtml($block->dateFormat($question->created_at)) ?></td>
                     <td data-th="<?= $block->escapeHtmlAttr(__('Product Name')) ?>" class="col name">
                         <strong class="product-name">
-                            <a href="<?= $block->escapeUrl($block->getProductUrl($block->getProductById($question->getProductId()))) ?>"><?= $block->getProductById($question->getProductId())->getName() ?></a>
+                            <a href="<?= $block->escapeUrl($block->getProductUrl($block->getProductById($question->product_id))) ?>"><?= $block->getProductById($question->product_id)->getName() ?></a>
                         </strong>
                     </td>
                     <td data-th="<?= $block->escapeHtmlAttr(__('Question')) ?>" class="col question">
-                        <?= $block->escapeHtml($question->getQuestion()) ?>
+                        <?= $block->escapeHtml($question->question) ?>
                     </td>
                     <td data-th="<?= $block->escapeHtmlAttr(__('Answer of Admin')) ?>" class="col answer">
-                        <?= $block->escapeHtml($question->getAnswer()) ?>
+                        <?= $block->escapeHtml($question->answer) ?>
                     </td>
                    
                 </tr>

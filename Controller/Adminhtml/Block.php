@@ -25,8 +25,10 @@ abstract class Block extends \Magento\Backend\App\Action
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Framework\Registry $coreRegistry
      */
-    public function __construct(\Magento\Backend\App\Action\Context $context, 
-                                \Magento\Framework\Registry $coreRegistry)
+    public function __construct(
+        \Magento\Backend\App\Action\Context $context,
+        \Magento\Framework\Registry $coreRegistry
+    )
     {
         $this->_coreRegistry = $coreRegistry;
         parent::__construct($context);

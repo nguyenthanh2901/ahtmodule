@@ -5,8 +5,10 @@ use Magento\Framework\Setup\InstallSchemaInterface;
 
 class InstallSchema implements InstallSchemaInterface
 {
-    public function install(\Magento\Framework\Setup\SchemaSetupInterface $setup, 
-    \Magento\Framework\Setup\ModuleContextInterface $context)
+    public function install(
+        \Magento\Framework\Setup\SchemaSetupInterface $setup,
+        \Magento\Framework\Setup\ModuleContextInterface $context
+    )
     {
         $installer = $setup;
         $installer->startSetup();

@@ -2,19 +2,18 @@
 namespace AHT\Question\Model\ResourceModel\Question\Grid;
 
 use AHT\Question\Model\Question;
-use Magento\Framework\Api;
-use Magento\Framework\Event\ManagerInterface as EventManager;
 use Magento\Framework\Data\Collection\Db\FetchStrategyInterface as FetchStrategy;
 use Magento\Framework\Data\Collection\EntityFactoryInterface as EntityFactory;
+use Magento\Framework\Event\ManagerInterface as EventManager;
 use Psr\Log\LoggerInterface as Logger;
 
 // use Magento\Framework\Api\Search\SearchResultInterface;
 
 class Collection extends \Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult
 {
-   /**
-     * Value of seconds in one minute
-     */
+    /**
+      * Value of seconds in one minute
+      */
     const SECONDS_IN_MINUTE = 60;
 
     /**
@@ -58,5 +57,4 @@ class Collection extends \Magento\Framework\View\Element\UiComponent\DataProvide
             ->from(['main_table' => 'aht_question']);
         return $this;
     }
-
 }

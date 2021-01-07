@@ -6,7 +6,6 @@
 namespace AHT\Question\Block\Product\View;
 
 use Magento\Catalog\Api\ProductRepositoryInterface;
-use AHT\Question\Model\ResourceModel\Question\Collection as questionCollection;
 
 /**
  * Product Reviews Page
@@ -78,12 +77,12 @@ class ListQuestion extends \Magento\Catalog\Block\Product\View
         if (!$this->_collection) {
             $this->_collection = $this->_collectionFactory->create();
             $this->_collection
-                ->addFieldToFilter('status',1)
-                ->addFieldToFilter('store_id',$this->_storeManager->getStore()->getId())
-                ->addFieldToFilter('product_id',$this->getProduct()->getId());
+                ->addFieldToFilter('status', 1)
+                ->addFieldToFilter('store_id', $this->_storeManager->getStore()->getId())
+                ->addFieldToFilter('product_id', $this->getProduct()->getId());
             $this->_collection
                 ->getSelect()
-                ->order('created_at' .' '. \Magento\Framework\DB\Select::SQL_DESC);
+                ->order('created_at' . ' ' . \Magento\Framework\DB\Select::SQL_DESC);
         }
         return $this->_collection;
     }

@@ -19,23 +19,42 @@ class QuestionRepository implements \AHT\Question\Api\QuestionRepositoryInterfac
         $this->_request = $request;
     }
 
-    public function getId($questionId)
-    {
-        $id = (int) $questionId;
-        $model = $this->_questionFactory->create();
-        $this->_questionResource->load($model, $id);
-        return $model->getData();
-    }
-
+    /**
+     * function get all data
+     *
+     * @return \AHT\Question\Api\Data\QuestionInterface
+     */
     public function getList()
     {
         $collection = $this->_questionFactory->create()->getCollection();
         return $collection->getData();
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param \AHT\Question\Api\Data\QuestionInterface $Post
+     * @return \AHT\Question\Api\Data\QuestionInterface
+     */
+
     public function save(QuestionInterface $question)
     {
-        $this->_questionResource->save($question);
+        try {
+            $this->_questionResource->save($question);
+        } catch (\Exception $exception) {
+            throw new CouldNotSaveException(
+                __('Could not save the Post: %1', $exception->getMessage()),
+                $exception
+            );
+        }
         return $question->getData();
     }
+
+    // public function getId($questionId)
+    // {
+    //     $id = (int) $questionId;
+    //     $model = $this->_questionFactory->create();
+    //     $this->_questionResource->load($model, $id);
+    //     return $model->getData();
+    // }
 }

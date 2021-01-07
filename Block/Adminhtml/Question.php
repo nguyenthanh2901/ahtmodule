@@ -1,5 +1,6 @@
 <?php
 namespace AHT\Question\Block\Adminhtml;
+
 class Question extends \Magento\Backend\Block\Widget\Grid\Container
 {
     protected function _construct()

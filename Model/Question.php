@@ -3,7 +3,6 @@ namespace AHT\Question\Model;
 
 class Question extends \Magento\Framework\Model\AbstractModel implements \AHT\Question\Api\Data\QuestionInterface
 {
-
     public function __construct(
         \Magento\Framework\Model\Context $context,
         \Magento\Framework\Registry $registry,
@@ -16,89 +15,123 @@ class Question extends \Magento\Framework\Model\AbstractModel implements \AHT\Qu
     /**
      * @return void
      */
-    
-	public function _construct()
-	{
-		$this->_init('AHT\Question\Model\ResourceModel\Question');
+
+    public function _construct()
+    {
+        $this->_init('AHT\Question\Model\ResourceModel\Question');
     }
-    /**
-     * Undocumented function
-     *
-     * @return string
-     */
-    public function getName() {
+
+    public function getName()
+    {
         return $this->getData("name");
     }
-    /**
-     * Undocumented function
-     *
-     * @return string
-     */
-    public function getEmail() {
+
+    public function getStatus()
+    {
+        return $this->getData("status");
+    }
+
+    public function getEmail()
+    {
         return $this->getData("email");
     }
-    /**
-     * Undocumented function
-     *
-     * @return string
-     */
-    public function getQuestion() {
+
+    public function getQuestion()
+    {
         return $this->getData("question");
     }
-    
-    public function getAnswer() {
+
+    public function getAnswer()
+    {
         return $this->getData("answer");
     }
-   
-    public function getCreatedAt() {
+
+    public function getCreatedAt()
+    {
         return $this->getData("created_at");
     }
-    
-    public function getUpdatedAt() {
+
+    public function getUpdatedAt()
+    {
         return $this->getData("updated_at");
     }
-    
- 
-    public function getQuestionId() {
+
+    public function getQuestionId()
+    {
         return $this->getData("question_id");
-
     }
-   
-    public function getStoreId() {
+
+    public function getStoreId()
+    {
         return $this->getData("store_id");
-
     }
-   
-    public function getProductId() {
+
+    public function getProductId()
+    {
         return $this->getData("product_id");
     }
-   
-    public function getUserId() {
+
+    public function getProductname()
+    {
+        return $this->getData("productname");
+    }
+    
+    public function getUserId()
+    {
         return $this->getData("user_id");
     }
-    
-    public function setName($name) {
+
+    public function setUserId($name)
+    {
+        return $this->setData("user_id", $name);
+    }
+
+    public function setName($name)
+    {
         return $this->setData("name", $name);
     }
-    
-    public function setEmail($email) {
+
+    public function setStoreId($name)
+    {
+        return $this->setData("store_id", $name);
+    }
+
+    public function setCreatedAt($created_at)
+    {
+        return $this->setData("created_at", $created_at);
+    }
+
+    public function setUpdatedAt($updated_at)
+    {
+        return $this->setData("updated_at", $updated_at);
+    }
+
+    public function setEmail($email)
+    {
         return $this->setData("email", $email);
     }
 
-    public function setProductId($productId) {
+    public function setProductId($productId)
+    {
         return $this->setData("product_id", $productId);
-    }  
-
-    public function setProductName($productName) {
-        return $this->setData("productname", $productName);
-    }  
-    
-    public function setQuestion($question) {
-        return $this->setData("question", $question);
-
     }
-   
-    public function setAnswer($answer) {
+
+    public function setProductName($productName)
+    {
+        return $this->setData("productname", $productName);
+    }
+
+    public function setQuestion($question)
+    {
+        return $this->setData("question", $question);
+    }
+
+    public function setAnswer($answer)
+    {
         return $this->setData("answer", $answer);
+    }
+    public function setStatus($status)
+    {
+        return $this->setData("status", $status);
     }
 }

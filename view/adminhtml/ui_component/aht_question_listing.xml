@@ -81,13 +81,13 @@
     <columns name="qaa_question_columns">
         <settings>
             <editorConfig>
+                <param name="selectProvider" xsi:type="string">aht_question_listing.aht_question_listing.qaa_question_columns.ids</param>
                 <param name="clientConfig" xsi:type="array">
                     <item name="saveUrl" xsi:type="url" path="questionadmin/question/edit"/>
                     <item name="validateBeforeSave" xsi:type="boolean">false</item>
                 </param>
                 <param name="indexField" xsi:type="string">question_id</param>
                 <param name="enabled" xsi:type="boolean">true</param>
-                <param name="selectProvider" xsi:type="string">aht_question_listing.aht_question_listing.qaa_question_columns.ids</param>
             </editorConfig>
             <childDefaults>
                 <param name="fieldAction" xsi:type="array">
@@ -127,15 +127,6 @@
                 </item>
             </argument>
         </column>
-        <!-- <column name="thumbnail" class="Magento\Catalog\Ui\Component\Listing\Columns\Thumbnail" component="Magento_Ui/js/grid/columns/thumbnail" sortOrder="20">
-            <settings>
-                <altField>name</altField>
-                <hasPreview>1</hasPreview>
-                <addField>true</addField>
-                <label translate="true">Thumbnail</label>
-                <sortable>false</sortable>
-            </settings>
-        </column> -->
         <column name="question">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -183,7 +174,7 @@
                 </item>
             </argument>
         </column>
-        
+
         <column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">

@@ -5,12 +5,10 @@
  */
 namespace AHT\Question\Model\Question;
 
+use AHT\Question\Model\QuestionFactory;
 use AHT\Question\Model\ResourceModel\Question\CollectionFactory;
 use Magento\Framework\App\Request\DataPersistorInterface;
-use Magento\Ui\DataProvider\Modifier\PoolInterface;
-use AHT\Question\Model\QuestionFactory;
 use Magento\Store\Model\StoreManagerInterface;
-// use AHT\Question\Model\Question\FileInfo;
 
 /**
  * Class DataProvider
@@ -23,7 +21,7 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
     protected $collection;
 
     protected $questionFactory;
-    
+
     protected $productRepository;
     /**
      * @var DataPersistorInterface
@@ -48,7 +46,6 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
         StoreManagerInterface $storeManager,
         array $meta = [],
         array $data = []
-        // PoolInterface $pool = null
     ) {
         $this->collection = $blockCollectionFactory->create();
         $this->questionFactory = $questionFactory;
@@ -58,19 +55,18 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
     }
 
-  
-    public function getData() {
+    public function getData()
+    {
         if (isset($this->loadedData)) {
             return $this->loadedData;
         }
-        $this->collection->getSelect()
-                         ->joinLeft('catalog_product_entity_varchar as pro','main_table.product_id = pro.entity_id AND pro.attribute_id = 73 ',array('*'));
+        $this->collection->getSelect();
         $items = $this->collection->getItems();
-        
+
         foreach ($items as $block) {
             $this->loadedData[$block->getId()] = $block->getData();
         }
-       
+
         return $this->loadedData;
     }
 }

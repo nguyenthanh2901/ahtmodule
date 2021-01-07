@@ -119,11 +119,11 @@ class ListQuestion extends \Magento\Customer\Block\Account\Dashboard
         if (!$this->_collection) {
             $this->_collection = $this->_collectionFactory->create();
             $this->_collection
-                ->addFieldToFilter('store_id',$this->_storeManager->getStore()->getId())
-                ->addFieldToFilter('user_id',$this->currentCustomer->getCustomerId());
+                ->addFieldToFilter('store_id', $this->_storeManager->getStore()->getId())
+                ->addFieldToFilter('user_id', $this->currentCustomer->getCustomerId());
             $this->_collection
                 ->getSelect()
-                ->order('created_at' .' '. \Magento\Framework\DB\Select::SQL_DESC);
+                ->order('created_at' . ' ' . \Magento\Framework\DB\Select::SQL_DESC);
         }
         return $this->_collection;
     }

@@ -59,17 +59,17 @@ class Edit extends \Magento\Backend\App\Action
         $messages = [];
 
         if ($this->getRequest()->getParam('isAjax')) {
-            $postItems = $this->getRequest()->getParam('items', []);
-            if (!count($postItems)) {
+            $models = $this->getRequest()->getParam('items', []);
+            if (!count($models)) {
                 $messages[] = __('Please correct the data sent.');
                 $error = true;
             } else {
-                foreach (array_keys($postItems) as $blockId) {
+                foreach (array_keys($models) as $blockId) {
                     /** @var \Magento\Cms\Model\Block $block */
                     $block = $this->questionFactory->create();
                     $this->questionResource->load($block, $blockId);
                     try {
-                        $block->setData(array_merge($block->getData(), $postItems[$blockId]));
+                        $block->setData(array_merge($block->getData(), $models[$blockId]));
                         $this->questionResource->save($block);
                     } catch (\Exception $e) {
                         $messages[] = '[Question ID: ' . $block->getId() . '] ' . __($e->getMessage());

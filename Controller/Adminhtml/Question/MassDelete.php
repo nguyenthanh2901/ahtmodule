@@ -6,16 +6,14 @@
  */
 namespace AHT\Question\Controller\Adminhtml\Question;
 
+use AHT\Question\Model\ResourceModel\Question\CollectionFactory;
+use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\Controller\ResultFactory;
-use Magento\Backend\App\Action\Context;
 use Magento\Ui\Component\MassAction\Filter;
-use AHT\Question\Model\ResourceModel\Question\CollectionFactory;
-
 
 class MassDelete extends \Magento\Backend\App\Action implements HttpPostActionInterface
 {
-
     const ADMIN_RESOURCE = 'AHT_Question::question';
 
     /**
@@ -48,12 +46,12 @@ class MassDelete extends \Magento\Backend\App\Action implements HttpPostActionIn
      */
     public function execute()
     {
-       
         $collection = $this->filter->getCollection($this->collectionFactory->create());
         // var_dump($collection);die;
+        // $collectionSize = $collection->getSize();
         foreach ($collection as $block) {
             $block->delete();
-        } 
+        }
 
         $this->messageManager->addSuccessMessage(__('The records have been deleted.'));
 
