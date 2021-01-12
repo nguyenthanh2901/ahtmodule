@@ -7,9 +7,24 @@ interface QuestionRepositoryInterface
     /**
      * function get all data
      *
-     * @return \AHT\Blog\Api\Data\QuestionInterface
+     * @return \AHT\Question\Api\Data\QuestionInterface
      */
     public function getList();
+
+    /**
+     * function delete data
+     *
+     * @return \AHT\Question\Api\Data\QuestionInterface
+     */
+    public function deleteById($question_id);
+
+    /**
+     * function delete data
+     *
+     * @return \AHT\Question\Api\Data\QuestionInterface
+     */
+
+    public function delete($question);
 
     // public function getId($questionId);
 

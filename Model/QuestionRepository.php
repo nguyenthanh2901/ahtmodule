@@ -31,6 +31,41 @@ class QuestionRepository implements \AHT\Question\Api\QuestionRepositoryInterfac
     }
 
     /**
+     * function delete data
+     *
+     * @return \AHT\Question\Api\Data\QuestionInterface
+     */
+    // public function delete(QuestionInterface $question)
+    // {
+    //     $questionFactory = $this->_questionFactory->create()->setData($question);
+    //     try {
+    //         return $this->_questionResource->delete($questionFactory);
+    //     } catch (\Exception $e) {
+    //         return "Failure: " . $e->getMessage();
+    //     }
+    // }
+
+
+    /**
+     * function delete data
+     *
+     * @return \AHT\Question\Api\Data\QuestionInterface
+     */
+    public function deleteById($question_id)
+    {
+        try {
+            echo 'hi';
+            $question = $this->getId($question_id);
+            if (!empty($question)) {
+                $this->_questionResource->delete($question);
+                return ['success' => true, 'message' => 'Success deleted question.'];
+            } else throw new \Exception("Unable to delete question with id: $question_id.");
+        } catch (\Exception $e) {
+            return "Failure: " . $e->getMessage();
+        }
+    }
+
+    /**
      * Undocumented function
      *
      * @param \AHT\Question\Api\Data\QuestionInterface $Post

@@ -12,4 +12,16 @@
 			<resource ref="anonymous"/>
 		</resources>
 	</route>
+	<!-- <route method="DELETE" url="/V1/delete/">
+		<service class="AHT\Question\Api\QuestionRepositoryInterface" method="delete"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route> -->
+	<route method="DELETE" url="/V1/delete/:question_id">
+		<service class="AHT\Question\Api\QuestionRepositoryInterface" method="deleteById"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
 </routes>
