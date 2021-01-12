@@ -118,7 +118,7 @@ class InstallSchema implements InstallSchemaInterface
                 \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
             );
         }
-        
+
         if (!$installer->tableExists('aht_answer')) {
             $table = $installer->getConnection()->newTable(
                 $installer->getTable('aht_answer')
@@ -174,10 +174,10 @@ class InstallSchema implements InstallSchemaInterface
                 $installer->getTable('aht_answer'),
                 $setup->getIdxName(
                     $installer->getTable('aht_answer'),
-                    ['name', 'email', 'question'],
+                    ['answer'],
                     \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
                 ),
-                ['name', 'email', 'question'],
+                ['answer'],
                 \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
             );
         }
