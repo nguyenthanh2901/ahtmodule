@@ -11,8 +11,6 @@ class InstallSchema implements InstallSchemaInterface
     ) {
         $installer = $setup;
         $installer->startSetup();
-        $install = $setup;
-        $install->startSetup();
         if (!$installer->tableExists('aht_question')) {
             $table = $installer->getConnection()->newTable(
                 $installer->getTable('aht_question')
@@ -63,6 +61,13 @@ class InstallSchema implements InstallSchemaInterface
                     null,
                     ['nullable' => false, 'default' => '0'],
                     'STATUS'
+                )
+                ->addColumn(
+                    'customer_answer_status',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
+                    null,
+                    ['nullable' => false, 'default' => '0'],
+                    'customer_answer_status'
                 )
                 ->addColumn(
                     'productname',
@@ -120,87 +125,82 @@ class InstallSchema implements InstallSchemaInterface
             );
         }
 
-        if (!$install->tableExists('aht_answer')) {
-            $table = $install->getConnection()->newTable(
-                $install->getTable('aht_answer')
-            )
-                ->addColumn(
-                    'answer_id',
-                    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
-                    null,
-                    [
-                        'identity' => true,
-                        'nullable' => false,
-                        'primary'  => true,
-                        'unsigned' => true,
-                    ],
-                    'ANSWER ID'
-                )
-                ->addColumn(
-                    'question_id',
-                    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
-                    null,
-                    [
-                        'identity' => true,
-                        'nullable' => true,
-                        'unsigned' => true,
-                    ],
-                    'ANSWER ID'
-                )
-                ->addColumn(
-                    'user_answer_id',
-                    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
-                    null,
-                    [
-                        'identity' => true,
-                        'nullable' => true,
-                        'unsigned' => true,
-                    ],
-                    'USER ANSWER ID'
-                )
-                ->addColumn(
-                    'username_answer',
-                    \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-                    255,
-                    ['nullable' => false],
-                    'USERNAME ANSWER'
-                )
-                ->addColumn(
-                    'answer',
-                    \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-                    255,
-                    ['nullable' => false],
-                    'ANSWER'
-                )
+        // if (!$installer->tableExists('aht_answer')) {
+        //     $table = $installer->getConnection()->newTable(
+        //         $installer->getTable('aht_answer')
+        //     )
+        //     ->addColumn(
+        //         'answer_id',
+        //         \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+        //         null,
+        //         [
+        //             'identity' => true,
+        //             'nullable' => false,
+        //             'primary'  => true,
+        //             'unsigned' => true,
+        //         ],
+        //         'ANSWER ID'
+        //     )
+        //         ->addColumn(
+        //             'question_id',
+        //             \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+        //             null,
+        //             [
+        //                 'nullable' => true
+        //             ],
+        //             'ANSWER ID'
+        //         )
+        //         ->addColumn(
+        //             'user_answer_id',
+        //             \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+        //             null,
+        //             [
+        //                 'nullable' => true,
+        //             ],
+        //             'USER ANSWER ID'
+        //         )
+        //         ->addColumn(
+        //             'username_answer',
+        //             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+        //             255,
+        //             ['nullable' => false],
+        //             'USERNAME ANSWER'
+        //         )
+        //         ->addColumn(
+        //             'answer',
+        //             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+        //             255,
+        //             ['nullable' => false],
+        //             'ANSWER'
+        //         )
 
-                ->addColumn(
-                    'created_at',
-                    \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
-                    null,
-                    ['nullable' => false, 'default' => \Magento\Framework\DB\Ddl\Table::TIMESTAMP_INIT],
-                    'Created At'
-                )->addColumn(
-                    'updated_at',
-                    \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
-                    null,
-                    ['nullable' => false, 'default' => \Magento\Framework\DB\Ddl\Table::TIMESTAMP_INIT_UPDATE],
-                    'Updated At'
-                )
-                ->setComment('Answer Table');
-            $install->getConnection()->createTable($table);
+        //         ->addColumn(
+        //             'created_at',
+        //             \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
+        //             null,
+        //             ['nullable' => false, 'default' => \Magento\Framework\DB\Ddl\Table::TIMESTAMP_INIT],
+        //             'Created At'
+        //         )->addColumn(
+        //             'updated_at',
+        //             \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
+        //             null,
+        //             ['nullable' => false, 'default' => \Magento\Framework\DB\Ddl\Table::TIMESTAMP_INIT_UPDATE],
+        //             'Updated At'
+        //         )
+        //         ->setComment('Answer Table');
+        //     $installer->getConnection()->createTable($table);
 
-            $install->getConnection()->addIndex(
-                $install->getTable('aht_answer'),
-                $setup->getIdxName(
-                    $install->getTable('aht_answer'),
-                    ['answer'],
-                    \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
-                ),
-                ['answer'],
-                \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
-            );
-        }
+        //     $installer->getConnection()->addIndex(
+        //         $installer->getTable('aht_answer'),
+        //         $setup->getIdxName(
+        //             $installer->getTable('aht_answer'),
+        //             ['answer'],
+        //             \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
+        //         ),
+        //         ['answer'],
+        //         \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
+        //     );
+        // }
         $installer->endSetup();
-        $install->endSetup();
     }
 }
