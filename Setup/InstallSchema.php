@@ -8,10 +8,11 @@ class InstallSchema implements InstallSchemaInterface
     public function install(
         \Magento\Framework\Setup\SchemaSetupInterface $setup,
         \Magento\Framework\Setup\ModuleContextInterface $context
-    )
-    {
+    ) {
         $installer = $setup;
         $installer->startSetup();
+        $install = $setup;
+        $install->startSetup();
         if (!$installer->tableExists('aht_question')) {
             $table = $installer->getConnection()->newTable(
                 $installer->getTable('aht_question')
@@ -119,9 +120,9 @@ class InstallSchema implements InstallSchemaInterface
             );
         }
 
-        if (!$installer->tableExists('aht_answer')) {
-            $table = $installer->getConnection()->newTable(
-                $installer->getTable('aht_answer')
+        if (!$install->tableExists('aht_answer')) {
+            $table = $install->getConnection()->newTable(
+                $install->getTable('aht_answer')
             )
                 ->addColumn(
                     'answer_id',
@@ -147,13 +148,31 @@ class InstallSchema implements InstallSchemaInterface
                     'ANSWER ID'
                 )
                 ->addColumn(
+                    'user_answer_id',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                    null,
+                    [
+                        'identity' => true,
+                        'nullable' => true,
+                        'unsigned' => true,
+                    ],
+                    'USER ANSWER ID'
+                )
+                ->addColumn(
+                    'username_answer',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    255,
+                    ['nullable' => false],
+                    'USERNAME ANSWER'
+                )
+                ->addColumn(
                     'answer',
                     \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
                     255,
                     ['nullable' => false],
                     'ANSWER'
                 )
-      
+
                 ->addColumn(
                     'created_at',
                     \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
@@ -168,12 +187,12 @@ class InstallSchema implements InstallSchemaInterface
                     'Updated At'
                 )
                 ->setComment('Answer Table');
-            $installer->getConnection()->createTable($table);
+            $install->getConnection()->createTable($table);
 
-            $installer->getConnection()->addIndex(
-                $installer->getTable('aht_answer'),
+            $install->getConnection()->addIndex(
+                $install->getTable('aht_answer'),
                 $setup->getIdxName(
-                    $installer->getTable('aht_answer'),
+                    $install->getTable('aht_answer'),
                     ['answer'],
                     \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
                 ),
@@ -182,5 +201,6 @@ class InstallSchema implements InstallSchemaInterface
             );
         }
         $installer->endSetup();
+        $install->endSetup();
     }
 }
