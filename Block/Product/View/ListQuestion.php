@@ -77,13 +77,18 @@ class ListQuestion extends \Magento\Catalog\Block\Product\View
         if (!$this->_collection) {
             $this->_collection = $this->_collectionFactory->create();
             $this->_collection
-                ->addFieldToFilter('status', 1)
-                ->addFieldToFilter('store_id', $this->_storeManager->getStore()->getId())
-                ->addFieldToFilter('product_id', $this->getProduct()->getId());
+            ->addFieldToFilter('status', 1)
+            ->addFieldToFilter('store_id', $this->_storeManager->getStore()->getId())
+            ->addFieldToFilter('product_id', $this->getProduct()->getId());
             $this->_collection
-                ->getSelect()
-                ->order('created_at' . ' ' . \Magento\Framework\DB\Select::SQL_DESC);
+            ->getSelect()
+            // ->joinLeft('aht_answer as pro','main_table.question_id = pro.question_id',array('*'));
+            ->join(
+                ['table1join'=>$this->_collection->getTable('aht_answer')],
+                'main_table.question_id = table1join.question_id');
         }
+        //  var_dump($this->_collection->getData()); die;
+
         return $this->_collection;
     }
     /**
@@ -95,6 +100,12 @@ class ListQuestion extends \Magento\Catalog\Block\Product\View
     {
         $product = $this->_coreRegistry->registry('product');
         return $product ? $product->getId() : null;
+    }
+
+    public function getCustomerSession()
+    {
+        // print_r($this->customerSession->getId());
+        return $this->customerSession;
     }
 
     /**
