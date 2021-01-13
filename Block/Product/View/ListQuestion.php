@@ -23,6 +23,9 @@ class ListQuestion extends \Magento\Catalog\Block\Product\View
     protected $_collectionFactory;
     protected $_collection;
 
+    protected $_answerFactory;
+    protected $_answerCollection;
+
     /**
      * @param \Magento\Catalog\Block\Product\Context $context
      * @param \Magento\Framework\Url\EncoderInterface $urlEncoder
@@ -50,9 +53,12 @@ class ListQuestion extends \Magento\Catalog\Block\Product\View
         ProductRepositoryInterface $productRepository,
         \Magento\Framework\Pricing\PriceCurrencyInterface $priceCurrency,
         \AHT\Question\Model\ResourceModel\Question\CollectionFactory $collectionFactory,
+
         array $data = []
     ) {
         $this->_collectionFactory = $collectionFactory;
+        $this->_answerFactory = $collectionFactory;
+
         parent::__construct(
             $context,
             $urlEncoder,
@@ -81,16 +87,32 @@ class ListQuestion extends \Magento\Catalog\Block\Product\View
             ->addFieldToFilter('store_id', $this->_storeManager->getStore()->getId())
             ->addFieldToFilter('product_id', $this->getProduct()->getId());
             $this->_collection
+            ->getSelect();
+        }
+        //  var_dump($this->_collection->getData()); die;
+        return $this->_collection;
+    }
+
+    public function getAnswers()
+    {
+        if (!$this->_answerCollection) {
+            $this->_answerCollection = $this->_answerFactory->create();
+            $this->_answerCollection
+            ->addFieldToFilter('status', 1)
+            ->addFieldToFilter('store_id', $this->_storeManager->getStore()->getId())
+            ->addFieldToFilter('product_id', $this->getProduct()->getId());
+            $this->_answerCollection
             ->getSelect()
-            // ->joinLeft('aht_answer as pro','main_table.question_id = pro.question_id',array('*'));
             ->join(
                 ['table1join'=>$this->_collection->getTable('aht_answer')],
                 'main_table.question_id = table1join.question_id');
         }
-        //  var_dump($this->_collection->getData()); die;
+        //  var_dump($this->_answerCollection->getData()); die;
 
-        return $this->_collection;
+        return $this->_answerCollection;
     }
+
+    
     /**
      * Get product id
      *

@@ -126,7 +126,7 @@ class InstallSchema implements InstallSchemaInterface
                 'Question Id'
             )
            
-            ->addColumn('answer', \Magento\Framework\DB\Ddl\Table::TYPE_TEXT, '64k', ['nullable' => false], 'Customer Answer')
+            ->addColumn('answer_customer', \Magento\Framework\DB\Ddl\Table::TYPE_TEXT, '64k', ['nullable' => false], 'Customer Answer')
             ->addColumn('user_name', \Magento\Framework\DB\Ddl\Table::TYPE_TEXT, '64k', ['nullable' => false], 'User Answer')
 
             ->addIndex($installer->getIdxName('aht_answer', ['question_id']), ['question_id'])
@@ -144,10 +144,10 @@ class InstallSchema implements InstallSchemaInterface
             $installer->getTable('aht_answer'),
             $installer->getIdxName(
                 $installer->getTable('aht_answer'),
-                ['answer'],
+                ['answer_customer'],
                 \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
             ),
-            ['answer'],
+            ['answer_customer'],
             \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
         );
         $installer->getConnection()->addIndex(

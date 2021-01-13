@@ -22,6 +22,8 @@ class ListQuestion extends \Magento\Customer\Block\Account\Dashboard
      * @var \Magento\Review\Model\ResourceModel\Review\Product\Collection
      */
     protected $_collection;
+    protected $_answerFactory;
+    protected $_answerCollection;
 
     /**
      * Review resource model
@@ -59,6 +61,8 @@ class ListQuestion extends \Magento\Customer\Block\Account\Dashboard
         array $data = []
     ) {
         $this->_collectionFactory = $collectionFactory;
+        $this->_answerFactory = $collectionFactory;
+
         $this->_productRepository = $productRepository;
         $this->_storeManager = $storeManager;
         parent::__construct(
@@ -129,6 +133,23 @@ class ListQuestion extends \Magento\Customer\Block\Account\Dashboard
         return $this->_collection;
     }
 
+    public function getAnswers()
+    {
+        if (!$this->_answerCollection) {
+            $this->_answerCollection = $this->_answerFactory->create();
+            $this->_answerCollection
+            ->addFieldToFilter('store_id', $this->_storeManager->getStore()->getId())
+                ->addFieldToFilter('user_id', $this->currentCustomer->getCustomerId());
+            $this->_answerCollection
+            ->getSelect()
+            ->join(
+                ['table1join'=>$this->_collection->getTable('aht_answer')],
+                'main_table.question_id = table1join.question_id');
+        }
+        //  var_dump($this->_answerCollection->getData()); die;
+
+        return $this->_answerCollection;
+    }
     /**
      * Get review link
      *

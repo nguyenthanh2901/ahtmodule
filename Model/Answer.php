@@ -44,12 +44,12 @@ class Answer extends \Magento\Framework\Model\AbstractModel implements \AHT\Ques
 
     public function getAnswer()
     {
-        return $this->getData("answer");
+        return $this->getData("answer_customer");
     }
 
     public function setAnswer($answer)
     {
-        return $this->setData("answer", $answer);
+        return $this->setData("answer_customer", $answer);
     }
 
     public function getUserName()

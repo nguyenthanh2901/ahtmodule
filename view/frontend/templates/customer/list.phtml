@@ -1,3 +1,6 @@
+<?php
+    $answer = $block->getAnswers();
+?>
 <?php if (count($block->getQuestions())) : ?>
     <div class="table-wrapper questions">
         <table class="data table table-questions" id="my-questions-table">
@@ -8,6 +11,7 @@
                     <th scope="col" class="col item"><?= $block->escapeHtml(__('Product Name')) ?></th>
                     <th scope="col" class="col question"><?= $block->escapeHtml(__('Question')) ?></th>
                     <th scope="col" class="col answer"><?= $block->escapeHtml(__('Answer of Admin')) ?></th>
+                    <th scope="col" class="col answer"><?= $block->escapeHtml(__('Answer of Customer')) ?></th>
                     
                 </tr>
             </thead>
@@ -26,7 +30,15 @@
                     <td data-th="<?= $block->escapeHtmlAttr(__('Answer')) ?>" class="col answer">
                         <?= $block->escapeHtml($question->getAnswer()) ?>
                     </td>
-                   
+                    <td data-th="<?= $block->escapeHtmlAttr(__('Answer')) ?>" class="col answer">
+                        <ul>
+                        <? foreach($answer->getData() as $temp) : ?>
+                            <?php if ($temp['question_id']==$question->getQuestionId()) : ?>
+                                <li><?php echo $temp["user_name"]. ': '. $temp["answer_customer"] ?></li>
+                            <?php endif ?>
+                        <?php endforeach; ?>
+                        </ul>
+                    </td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>

@@ -61,6 +61,11 @@ class Question extends \Magento\Framework\Model\AbstractModel implements \AHT\Qu
         return $this->getData("question_id");
     }
 
+    public function getAnswerStatus()
+    {
+        return $this->getData("answer_status");
+    }
+
     public function getStoreId()
     {
         return $this->getData("store_id");
@@ -130,6 +135,12 @@ class Question extends \Magento\Framework\Model\AbstractModel implements \AHT\Qu
     {
         return $this->setData("answer", $answer);
     }
+
+    public function setAnswerStatus($answerStatus)
+    {
+        return $this->setData("answer_status", $answerStatus);
+    }
+
     public function setStatus($status)
     {
         return $this->setData("status", $status);

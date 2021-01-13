@@ -11,6 +11,14 @@ interface QuestionInterface
 
     public function getName();
 
+     /**
+    * Get post name
+    *
+    * @return string|null
+    */
+
+    public function getAnswerStatus();
+
     /**
     * Get post name
     *
@@ -170,6 +178,14 @@ interface QuestionInterface
 
     public function setUpdatedAt($updated_at);
 
+     /**
+        * Get post name
+        *
+        * @return string|null
+        */
+
+        public function setAnswerStatus($answerStatus);
+        
     /**
      * Get post name
      *

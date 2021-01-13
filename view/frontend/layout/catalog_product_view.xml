@@ -9,8 +9,8 @@
                     <argument translate="true" name="title" xsi:type="string">Question - Answer</argument>
                     <argument name="sort_order" xsi:type="string">00</argument>
                 </arguments>
-                <block class="AHT\Question\Block\Product\View\ListQuestion" name="question.list" as="question.list" template="AHT_Question::product/question_list.phtml" cacheable="false"/>
-                <block class="Magento\Theme\Block\Html\Pager" name="product_question_list.toolbar"/>
+                <block class="AHT\Question\Block\Product\View\ListQuestion" name="question.list" as="question.list" template="AHT_Question::product/list.phtml" ifconfig="question_pending/question/is_enabled" cacheable="false"/>
+                <block class="Magento\Theme\Block\Html\Pager" name="product_question_list.toolbar" ifconfig="question_pending/question/is_enabled"/>
                 <block class="AHT\Question\Block\Product\View\FormQuestion" name="question.form" as="question.form" template="AHT_Question::product/question_form.phtml" ifconfig="question_pending/question/is_enabled" cacheable="false" />
             </block>
         </referenceBlock>

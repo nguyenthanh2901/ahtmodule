@@ -158,6 +158,17 @@
                 <label translate="true">Status</label>
             </settings>
         </column>
+        <column name="answer_status" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <options class="AHT\Question\Model\Answer\Source\Status"/>
+                <filter>select</filter>
+                <editor>
+                    <editorType>select</editorType>
+                </editor>
+                <dataType>select</dataType>
+                <label translate="true">Status Answer</label>
+            </settings>
+        </column>
         <column name="store_id" class="Magento\Store\Ui\Component\Listing\Column\Store">
             <settings>
                 <label translate="true">Store View</label>
