@@ -40,9 +40,9 @@ $format = $block->getDateFormat() ?: \IntlDateFormatter::SHORT;
                                 </div> 
                             <?php endif ?>
                         <?php endforeach; ?>
-                        
+
                         <?php if ($question->getAnswerStatus()==1) : ?>
-                            <form method="post" action="<?= $block->escapeUrl('question/product/answerquestion')  ?>">
+                            <form name="saveAnswer" method="post" id="saveAnswer">
                                 <div class="question-content" itemprop="description">
                                     <h4>Do you want to answer this question?</h4>
                                     <?= /* @noEscape */ nl2br($block->escapeHtml('Your Answer: ')) ?>
@@ -70,3 +70,29 @@ $format = $block->getDateFormat() ?: \IntlDateFormatter::SHORT;
         </div>
     </div>
 <?php endif; ?>
+
+
+<script>
+require(['jquery'],function(){
+    jQuery(document).ready(function() {
+        jQuery(".0").hide();
+        jQuery("#saveAnswer").submit(function(){
+            
+            var oneValue = jQuery("input[name='answer']").val();
+            var twoValue = jQuery("input[name='user_name']").val();
+            var threeValue = jQuery("input[name='question_id']").val();
+
+            var url = "<?php echo $block->getBaseUrl() . 'question/product/answerquestion' ?>";
+            console.log(url);
+            jQuery.ajax({
+            url: url,
+            type: "POST",
+            data: {answer:oneValue, user_name:twoValue, question_id:threeValue},
+            showLoader: true,
+            cache: false
+        });
+        return false;
+        });
+    });
+});
+</script>

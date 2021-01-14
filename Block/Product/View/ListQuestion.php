@@ -130,6 +130,11 @@ class ListQuestion extends \Magento\Catalog\Block\Product\View
         return $this->customerSession;
     }
 
+    public function getBaseUrl()
+    {
+        return $this->_storeManager->getStore()->getBaseUrl();
+    }
+    
     /**
      * Prepare product review list toolbar
      *

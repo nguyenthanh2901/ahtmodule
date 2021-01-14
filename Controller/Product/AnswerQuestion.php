@@ -1,5 +1,6 @@
 <?php
 namespace AHT\Question\Controller\Product;
+use Magento\Framework\Controller\Result\JsonFactory;
 
 class AnswerQuestion extends \Magento\Framework\App\Action\Action
 {
@@ -13,6 +14,8 @@ class AnswerQuestion extends \Magento\Framework\App\Action\Action
     protected $_customerSession;
     protected $_storeManager;
     protected $messageManager;
+    protected $resultJsonFactory; 
+
 
     private $_cacheTypeList;
     private $_cacheFrontendPool;
@@ -28,8 +31,11 @@ class AnswerQuestion extends \Magento\Framework\App\Action\Action
         \Magento\Framework\App\Cache\Frontend\Pool $cacheFrontendPool,
         \Magento\Framework\App\Response\RedirectInterface $resultRedirect,
         \Magento\Customer\Model\Session $customerSession,
-        \Magento\Store\Model\StoreManagerInterface $storeManager
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        JsonFactory $resultJsonFactory
+        
     ) {
+        $this->resultJsonFactory = $resultJsonFactory; 
         $this->_customerSession = $customerSession;
         $this->_storeManager = $storeManager;
         $this->_pageFactory = $pageFactory;
@@ -49,16 +55,13 @@ class AnswerQuestion extends \Magento\Framework\App\Action\Action
     {
         $answer = $this->_answerFactory->create();
         try {
-            if (isset($_POST['submit'])) {
+            if (isset($_POST['question_id'])) {
              
                 $answer->setQuestionId($this->getRequest()->getParam("question_id"));
                 $answer->setAnswer($this->getRequest()->getParam("answer"));
                 $answer->setUserName($this->getRequest()->getParam("user_name"));
-                // $answer->setUserName($this->_customerSession->getCustomerId());
             }
-
-            // var_dump($answer->getData());die;
-
+            // echo 'test';die;
             $this->_answerResource->save($answer);
             $this->messageManager->addSuccessMessage("Your answer has been saved");
         } catch (\Exception $e) {
@@ -72,7 +75,8 @@ class AnswerQuestion extends \Magento\Framework\App\Action\Action
         foreach ($this->_cacheFrontendPool as $cacheFrontend) {
             $cacheFrontend->getBackend()->clean();
         }
-        // print_r($this->_redirect->getRefererUrl());die;
+
+        $result = $this->resultJsonFactory->create();
         $resultRedirect = $this->resultRedirectFactory->create();
         $resultRedirect->setPath($this->_redirect->getRefererUrl());
         return $resultRedirect;
