@@ -54,6 +54,7 @@ class AnswerQuestion extends \Magento\Framework\App\Action\Action
     public function execute()
     {
         $answer = $this->_answerFactory->create();
+        $answerResult = $this->_answerFactory->create();
         try {
             if (isset($_POST['question_id'])) {
              
@@ -61,24 +62,13 @@ class AnswerQuestion extends \Magento\Framework\App\Action\Action
                 $answer->setAnswer($this->getRequest()->getParam("answer"));
                 $answer->setUserName($this->getRequest()->getParam("user_name"));
             }
-            // echo 'test';die;
+            
             $this->_answerResource->save($answer);
+
+            echo json_encode($answer->getData());
             $this->messageManager->addSuccessMessage("Your answer has been saved");
         } catch (\Exception $e) {
             $this->messageManager->addErrorMessage("Something went wrong.");
         }
-
-        $types = ['config','layout','block_html','collections','reflection','db_ddl','compiled_config','eav','config_integration','config_integration_api','full_page','translate','config_webservice','vertex'];
-        foreach ($types as $type) {
-            $this->_cacheTypeList->cleanType($type);
-        }
-        foreach ($this->_cacheFrontendPool as $cacheFrontend) {
-            $cacheFrontend->getBackend()->clean();
-        }
-
-        $result = $this->resultJsonFactory->create();
-        $resultRedirect = $this->resultRedirectFactory->create();
-        $resultRedirect->setPath($this->_redirect->getRefererUrl());
-        return $resultRedirect;
     }
 }
