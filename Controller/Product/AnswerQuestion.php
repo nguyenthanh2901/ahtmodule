@@ -63,7 +63,8 @@ class AnswerQuestion extends \Magento\Framework\App\Action\Action
                 $answer->setUserName($this->getRequest()->getParam("user_name"));
             }
             
-            $this->_answerResource->save($answer);
+            // $this->_answerResource->save($answer);
+            
 
             echo json_encode($answer->getData());
 
