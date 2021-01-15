@@ -17,7 +17,7 @@ $format = $block->getDateFormat() ?: \IntlDateFormatter::SHORT;
             <ol class="items question-items">
                 <?php foreach ($item as $question) : ?>
                     <div <?php echo 'class="question-answer-' . $question->getQuestionId().'"' ?> >
-                        <li class="item question-item" itemscope itemprop="question" itemtype="">
+                        <li <?php echo 'class="item question-item-' . $question->getQuestionId().'"' ?> itemscope itemprop="question" itemtype="">
                             <div class="question-details">
                                 <p class="question-author">
                                     <span class="question-details-label"><?= $block->escapeHtml(__('Questioned by: ')) ?></span>
@@ -41,12 +41,10 @@ $format = $block->getDateFormat() ?: \IntlDateFormatter::SHORT;
                                     </div> 
                                 <?php endif ?>
                             <?php endforeach; ?>
-
-                           
                         </li>
                     </div>
                     <?php if ($question->getAnswerStatus()==1) : ?>
-                                <form name="saveAnswer" method="post" id="saveAnswer">
+                                <form name="saveAnswer" method="post" id="saveAnswer" class="formtest">
                                     <div class="question-content" itemprop="description">
                                         <h4>Do you want to answer this question?</h4>
                                         <?= /* @noEscape */ nl2br($block->escapeHtml('Your Answer: ')) ?>
@@ -78,11 +76,11 @@ $format = $block->getDateFormat() ?: \IntlDateFormatter::SHORT;
 <script>
 require(['jquery'],function($){
     jQuery(document).ready(function() {
-        jQuery("#saveAnswer").submit(function(){
-            
-            var oneValue = jQuery("input[name='answer']").val();
-            var twoValue = jQuery("input[name='user_name']").val();
-            var threeValue = jQuery("input[name='question_id']").val();
+        jQuery(".formtest").submit(function(e){
+            e.preventDefault();
+            var oneValue = e.target[0].value;
+            var twoValue = e.target[1].value;
+            var threeValue = e.target[2].value
             var url = "<?php echo $block->getBaseUrl() . 'question/product/answerquestion' ?>";
 
             jQuery.ajax({
@@ -98,12 +96,11 @@ require(['jquery'],function($){
             success: function(response){
                 document.getElementById("saveAnswer").reset();
                 var data = jQuery.parseJSON(response);
+                console.log(data);
                 var html = '<div class="question-content" itemprop="description">';
                 html += 'Answer of ' + data.user_name  + ': ' + data.answer_customer;
                 html += '</div>';
-
-                answerClass = ".question-answer-" + data.question_id; 
-                console.log(answerClass);
+                answerClass = ".question-item-" + data.question_id;
                 $(answerClass).append(html);
             },
             error: function (xhr, status, errorThrown) {

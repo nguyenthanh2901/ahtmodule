@@ -66,9 +66,10 @@ class AnswerQuestion extends \Magento\Framework\App\Action\Action
             $this->_answerResource->save($answer);
 
             echo json_encode($answer->getData());
+
             $this->messageManager->addSuccessMessage("Your answer has been saved");
         } catch (\Exception $e) {
-            $this->messageManager->addErrorMessage("Something went wrong.");
+            $this->messageManager->addErrorMessage("Something went wrong. Try it again!");
         }
     }
 }
