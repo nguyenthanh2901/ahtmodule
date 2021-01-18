@@ -10,9 +10,6 @@ $format = $block->getDateFormat() ?: \IntlDateFormatter::SHORT;
 ?>
 <?php if (count($item)) : ?>
     <div class="block question-list" id="customer-questions">
-        <?php if (!$block->getHideTitle()) : ?>
-            
-        <?php endif ?>
         <div class="block-content">
             <ol class="items question-items">
                 <?php foreach ($item as $question) : ?>
@@ -46,21 +43,21 @@ $format = $block->getDateFormat() ?: \IntlDateFormatter::SHORT;
                     </div>
                    
                     <?php if ($question->getAnswerStatus()==1) : ?>
-                                <form <?php echo 'name="saveAnswer-' . $question->getQuestionId().'"' ?>  method="post"  style="display: none;"  class="formtest">
-                                    <div class="question-content" itemprop="description">
-                                        <h4>Do you want to answer this question?</h4>
-                                        <?= /* @noEscape */ nl2br($block->escapeHtml('Your Answer: ')) ?>
-                                        <input required style="max-width: 200px" placeholder="Your Answer..." name="answer" type="text"> <br>
+                            <form <?php echo 'name="saveAnswer-' . $question->getQuestionId().'"' ?>  method="post"  style="display: none;"  class="formtest">
+                                <div class="question-content" itemprop="description">
+                                    <h4>Do you want to answer this question?</h4>
+                                    <?= /* @noEscape */ nl2br($block->escapeHtml('Your Answer: ')) ?>
+                                    <input required style="max-width: 200px" placeholder="Your Answer..." name="answer" type="text"> <br>
 
-                                        <?= /* @noEscape */ nl2br($block->escapeHtml('Your Name:  ')) ?>
-                                        <input required style="max-width: 209px" placeholder="Your Name Want To Show..." name="user_name" type="text">
+                                    <?= /* @noEscape */ nl2br($block->escapeHtml('Your Name:  ')) ?>
+                                    <input required style="max-width: 209px" placeholder="Your Name Want To Show..." name="user_name" type="text">
 
-                                        <input hidden type="text" name="question_id" value="<?= $question->getQuestionId()?>" />
-                                        <!-- <input hidden type="text" name="user_name" value="" /> --> <br>
-                                        <button name="submit" type="submit" class="action submit primary"><span><?= $block->escapeHtml(__('Answer')) ?></span></button>
-                                    </div> 
-                                </form>
-                            <?php endif ?>
+                                    <input hidden type="text" name="question_id" value="<?= $question->getQuestionId()?>" />
+                                    <!-- <input hidden type="text" name="user_name" value="" /> --> <br>
+                                    <button  name="submit" type="submit" class="action submit primary"><span><?= $block->escapeHtml(__('Answer')) ?></span></button>
+                                </div> 
+                            </form>
+                     <?php endif ?>
                     
                             <hr>
                 <?php endforeach; ?>
@@ -84,20 +81,45 @@ $format = $block->getDateFormat() ?: \IntlDateFormatter::SHORT;
 require(['jquery'],function($){
     jQuery(document).ready(function() {
         var form;
+        var saveAnswer;
+        var conntItem;
         jQuery(".answer-button").click(function(e){
             e.preventDefault();
             formName = "." + e.target.parentElement.className;
             form = formName.slice(17);
             saveAnswer = 'form[name ="saveAnswer-' + form + '"]';
             $(saveAnswer).toggle("slow", "swing");
-
         });
 
         jQuery("li.item").each(function(){
             var count = jQuery(this).children('div.question-content').length;
             jQuery(this).children('div.question-content:lt(3)').show();
             if (count>3) {
+                jQuery(this).append('<a style="cursor: pointer;" class="loadMore">Show More Answers</a>');
             }
+        });
+
+        jQuery(".loadMore").click(function(e){
+            e.preventDefault();
+            formTest = "." + e.target.parentElement.parentElement.className;
+            show = formTest.slice(17);
+            strAnswer = 'li.question-item-' + show;
+            countItem =  jQuery(this).parent(strAnswer).children('div.question-content').length;  	
+            countAnswer = 3;
+            jQuery(strAnswer).on("click",'.loadMore',function (){
+                if(countAnswer <= countItem) {
+                        countAnswer += 3;
+                        temp = 'div.question-content:lt(' + countAnswer + ')';
+                        jQuery(this).parent(strAnswer).children(temp).show();  	
+                    }	
+                else {
+                    jQuery(this).removeClass('loadMore').addClass('loadLess').text('Show Less Answers'); 
+                }
+                });
+            jQuery(strAnswer).on("click",'.loadLess',function (){
+                jQuery(this).parent(strAnswer).children('div.question-content:gt(2)').hide();
+                jQuery(this).removeClass('loadLess').addClass('loadMore').text('Show More Answers'); 
+            });
         });
 
         jQuery(".formtest").submit(function(e){
@@ -118,7 +140,7 @@ require(['jquery'],function($){
             showLoader: true,
             cache: false,
             success: function(response){
-                // document.getElementById("saveAnswer").reset();
+                $(saveAnswer).trigger("reset");
                 var data = jQuery.parseJSON(response);
                 var html = '<div class="question-content" itemprop="description">';
                 html += 'Answer of ' + data.user_name  + ': ' + data.answer_customer;
