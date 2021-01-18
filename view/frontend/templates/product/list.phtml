@@ -48,12 +48,9 @@ $format = $block->getDateFormat() ?: \IntlDateFormatter::SHORT;
                                     <h4>Do you want to answer this question?</h4>
                                     <?= /* @noEscape */ nl2br($block->escapeHtml('Your Answer: ')) ?>
                                     <input required style="max-width: 200px" placeholder="Your Answer..." name="answer" type="text"> <br>
-
                                     <?= /* @noEscape */ nl2br($block->escapeHtml('Your Name:  ')) ?>
                                     <input required style="max-width: 209px" placeholder="Your Name Want To Show..." name="user_name" type="text">
-
                                     <input hidden type="text" name="question_id" value="<?= $question->getQuestionId()?>" />
-                                    <!-- <input hidden type="text" name="user_name" value="" /> --> <br>
                                     <button  name="submit" type="submit" class="action submit primary"><span><?= $block->escapeHtml(__('Answer')) ?></span></button>
                                 </div> 
                             </form>
@@ -71,11 +68,6 @@ $format = $block->getDateFormat() ?: \IntlDateFormatter::SHORT;
     </div>
 <?php endif; ?>
 
-<style>
-    div.question-content{
-        /* display:none; */
-    }
-</style>
 
 <script>
 require(['jquery'],function($){
@@ -93,7 +85,7 @@ require(['jquery'],function($){
 
         jQuery("li.item").each(function(){
             var count = jQuery(this).children('div.question-content').length;
-            jQuery(this).children('div.question-content:lt(3)').show();
+            jQuery(this).children('div.question-content:gt(2)').hide();
             if (count>3) {
                 jQuery(this).append('<a style="cursor: pointer;" class="loadMore">Show More Answers</a>');
             }
@@ -146,7 +138,8 @@ require(['jquery'],function($){
                 html += 'Answer of ' + data.user_name  + ': ' + data.answer_customer;
                 html += '</div>';
                 answerClass = ".question-item-" + data.question_id;
-                $(answerClass).append(html);
+
+                $(answerClass + " a.loadMore").before(html);
             },
             error: function (xhr, status, errorThrown) {
                 console.log('Error happens. Try again.');
