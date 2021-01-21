@@ -60,13 +60,20 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
         if (isset($this->loadedData)) {
             return $this->loadedData;
         }
-        $this->collection->getSelect();
+        $this->collection->getSelect()
+        ->join(
+            ['table1join'=>$this->collection->getTable('aht_answer')],
+            'main_table.question_id = table1join.question_id');
+        var_dump($this->collection->getData());die; 
+            
         $items = $this->collection->getItems();
 
         foreach ($items as $block) {
             $this->loadedData[$block->getId()] = $block->getData();
         }
-
+        // echo '<pre>';
+        //     print_r($this->loadedData);
+        // echo '</pre>'; die;
         return $this->loadedData;
     }
 }

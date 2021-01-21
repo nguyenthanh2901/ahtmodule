@@ -1,5 +1,5 @@
 <?php
-namespace AHT\QA\Block\Adminhtml\Question\Edit;
+namespace AHT\Question\Block\Adminhtml\Question\Edit;
  
 class CustomLink extends \Magento\Backend\Block\Template
 {

@@ -3,7 +3,7 @@
     <update handle="editor"/>
     <body>
         <referenceContainer name="content">
-            <uiComponent name="ahtar_question_form"/>
+            <uiComponent name="aht_question_form"/>
         </referenceContainer>
     </body>
 </page>

@@ -14,7 +14,7 @@ use Magento\Ui\Component\Control\Container;
  * Class SaveButton
  * @package Magento\Customer\Block\Adminhtml\Edit
  */
-class SaveButton extends GenericButton implements ButtonProviderInterface
+class SaveButton implements ButtonProviderInterface
 {
     /**
      * @return array
@@ -22,14 +22,14 @@ class SaveButton extends GenericButton implements ButtonProviderInterface
     public function getButtonData()
     {
         return [
-            'label' => __('Luu'),
+            'label' => __('Save'),
             'class' => 'save primary',
             'data_attribute' => [
                 'mage-init' => [
                     'buttonAdapter' => [
                         'actions' => [
                             [
-                                'targetName' => 'qaa_question_form.qaa_question_form',
+                                'targetName' => 'aht_question_form.aht_question_form',
                                 'actionName' => 'save',
                                 'params' => [
                                     true,
@@ -56,36 +56,14 @@ class SaveButton extends GenericButton implements ButtonProviderInterface
     {
         $options = [
             [
-                'label' => __('Luu & Nhan ban'),
-                'id_hard' => 'save_and_duplicate',
-                'data_attribute' => [
-                    'mage-init' => [
-                        'buttonAdapter' => [
-                            'actions' => [
-                                [
-                                    'targetName' => 'qaa_question_form.qaa_question_form',
-                                    'actionName' => 'save',
-                                    'params' => [
-                                        true,
-                                        [
-                                            'back' => 'duplicate'
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ],
-            [
                 'id_hard' => 'save_and_close',
-                'label' => __('Luu & Dong lai'),
+                'label' => __('Save & Close'),
                 'data_attribute' => [
                     'mage-init' => [
                         'buttonAdapter' => [
                             'actions' => [
                                 [
-                                    'targetName' => 'qaa_question_form.qaa_question_form',
+                                    'targetName' => 'aht_question_form.aht_question_form',
                                     'actionName' => 'save',
                                     'params' => [
                                         true,
@@ -100,14 +78,14 @@ class SaveButton extends GenericButton implements ButtonProviderInterface
                 ]
             ],
             [
-                'label' => __('Luu & next'),
+                'label' => __('Save & Next'),
                 'id_hard' => 'save_and_next',
                 'data_attribute' => [
                     'mage-init' => [
                         'buttonAdapter' => [
                             'actions' => [
                                 [
-                                    'targetName' => 'qaa_question_form.qaa_question_form',
+                                    'targetName' => 'aht_question_form.aht_question_form',
                                     'actionName' => 'save',
                                     'params' => [
                                         true,
