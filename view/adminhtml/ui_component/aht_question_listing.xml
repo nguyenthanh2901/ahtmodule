@@ -65,6 +65,50 @@
                     <label translate="true">Delete</label>
                 </settings>
             </action>
+            <action name="enable_answer">
+                <settings>
+                    <confirm>
+                        <message translate="true">Enable Answer Function For This Question?</message>
+                        <title translate="true">Enable Answer Function</title>
+                    </confirm>
+                    <url path="questionadmin/question/MassEnable"/>
+                    <type>enable</type>
+                    <label translate="true">Enable Answer</label>
+                </settings>
+            </action>
+            <action name="disable_answer">
+                <settings>
+                    <confirm>
+                        <message translate="true">Disable Answer Function For This Question?</message>
+                        <title translate="true">Disable Answer Function</title>
+                    </confirm>
+                    <url path="questionadmin/question/MassDisable"/>
+                    <type>disable</type>
+                    <label translate="true">Disable Answer</label>
+                </settings>
+            </action>
+            <!-- <action name="enable_question">
+                <settings>
+                    <confirm>
+                        <message translate="true">Enable Question Function?</message>
+                        <title translate="true">Enable Question Function</title>
+                    </confirm>
+                    <url path="questionadmin/question/MassEnableQuestion"/>
+                    <type>enable</type>
+                    <label translate="true">Enable Question</label>
+                </settings>
+            </action>
+            <action name="disable_question">
+                <settings>
+                    <confirm>
+                        <message translate="true">Disable Question Function?</message>
+                        <title translate="true">Disable Question Function</title>
+                    </confirm>
+                    <url path="questionadmin/question/MassDisableQuestion"/>
+                    <type>disable</type>
+                    <label translate="true">Disable Question</label>
+                </settings>
+            </action> -->
             <action name="edit">
                 <settings>
                     <callback>
@@ -143,7 +187,7 @@
                     <item name="editor" xsi:type="array">
                         <item name="editorType" xsi:type="string">text</item>
                     </item>
-                    <item name="label" xsi:type="string" translate="true">Answer</item>
+                    <item name="label" xsi:type="string" translate="true">Answer of Admin</item>
                 </item>
             </argument>
         </column>
@@ -155,7 +199,7 @@
                     <editorType>select</editorType>
                 </editor>
                 <dataType>select</dataType>
-                <label translate="true">Status</label>
+                <label translate="true">Question Status</label>
             </settings>
         </column>
         <column name="answer_status" component="Magento_Ui/js/grid/columns/select">
@@ -166,7 +210,7 @@
                     <editorType>select</editorType>
                 </editor>
                 <dataType>select</dataType>
-                <label translate="true">Status Answer</label>
+                <label translate="true">Answer Status</label>
             </settings>
         </column>
         <column name="store_id" class="Magento\Store\Ui\Component\Listing\Column\Store">
@@ -185,7 +229,6 @@
                 </item>
             </argument>
         </column>
-
         <column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">

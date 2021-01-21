@@ -34,4 +34,8 @@ class FormQuestion extends \Magento\Framework\View\Element\Template
     {
         return $this->_storeManager;
     }
+    public function getBaseUrl()
+    {
+        return $this->_storeManager->getStore()->getBaseUrl();
+    }
 }

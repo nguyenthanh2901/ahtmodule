@@ -1,5 +1,6 @@
 <?php
 namespace AHT\Question\Controller\Product;
+
 use Magento\Framework\Controller\Result\JsonFactory;
 
 class AnswerQuestion extends \Magento\Framework\App\Action\Action
@@ -14,8 +15,7 @@ class AnswerQuestion extends \Magento\Framework\App\Action\Action
     protected $_customerSession;
     protected $_storeManager;
     protected $messageManager;
-    protected $resultJsonFactory; 
-
+    protected $resultJsonFactory;
 
     private $_cacheTypeList;
     private $_cacheFrontendPool;
@@ -33,9 +33,8 @@ class AnswerQuestion extends \Magento\Framework\App\Action\Action
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         JsonFactory $resultJsonFactory
-        
     ) {
-        $this->resultJsonFactory = $resultJsonFactory; 
+        $this->resultJsonFactory = $resultJsonFactory;
         $this->_customerSession = $customerSession;
         $this->_storeManager = $storeManager;
         $this->_pageFactory = $pageFactory;
@@ -57,14 +56,12 @@ class AnswerQuestion extends \Magento\Framework\App\Action\Action
         $answerResult = $this->_answerFactory->create();
         try {
             if (isset($_POST['question_id'])) {
-             
                 $answer->setQuestionId($this->getRequest()->getParam("question_id"));
                 $answer->setAnswer($this->getRequest()->getParam("answer"));
                 $answer->setUserName($this->getRequest()->getParam("user_name"));
             }
-            
+
             $this->_answerResource->save($answer);
-            
 
             echo json_encode($answer->getData());
 

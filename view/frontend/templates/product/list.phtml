@@ -1,10 +1,9 @@
 <?php
 
+
 $item = $block->getQuestions();
 $answer = $block->getAnswers();
-// echo '<pre>'; echo 'hieh';
-//     print_r($item->getData());
-// echo '</pre>'; 
+
 
 $format = $block->getDateFormat() ?: \IntlDateFormatter::SHORT;
 ?>
@@ -43,7 +42,7 @@ $format = $block->getDateFormat() ?: \IntlDateFormatter::SHORT;
                     </div>
                    
                     <?php if ($question->getAnswerStatus()==1) : ?>
-                            <form <?php echo 'name="saveAnswer-' . $question->getQuestionId().'"' ?>  method="post"  style="display: none;"  class="formtest">
+                            <form <?php echo 'name="saveAnswer-' . $question->getQuestionId().'"' ?>   method="post"  style="display: none;"  class="formtest">
                                 <div class="question-content" itemprop="description">
                                     <h4>Do you want to answer this question?</h4>
                                     <?= /* @noEscape */ nl2br($block->escapeHtml('Your Answer: ')) ?>
@@ -89,6 +88,9 @@ require(['jquery'],function($){
             if (count>3) {
                 jQuery(this).append('<a style="cursor: pointer;" class="loadMore">Show More Answers</a>');
             }
+            else {
+                jQuery(this).append('<a style="cursor: pointer; display: none" class="loadMore">Show More Answers</a>');
+            }
         });
 
         jQuery(".loadMore").click(function(e){
@@ -102,14 +104,14 @@ require(['jquery'],function($){
                 if(countAnswer <= countItem) {
                         countAnswer += 3;
                         temp = 'div.question-content:lt(' + countAnswer + ')';
-                        jQuery(this).parent(strAnswer).children(temp).show();  	
+                        jQuery(this).parent(strAnswer).children(temp).show(500);  	
                     }	
                 else {
                     jQuery(this).removeClass('loadMore').addClass('loadLess').text('Show Less Answers'); 
                 }
                 });
             jQuery(strAnswer).on("click",'.loadLess',function (){
-                jQuery(this).parent(strAnswer).children('div.question-content:gt(2)').hide();
+                jQuery(this).parent(strAnswer).children('div.question-content:gt(2)').hide(500);
                 jQuery(this).removeClass('loadLess').addClass('loadMore').text('Show More Answers'); 
             });
         });
@@ -146,7 +148,6 @@ require(['jquery'],function($){
             }
         },
         );
-        return false;
         });
     });
 });
