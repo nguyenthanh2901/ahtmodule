@@ -52,6 +52,13 @@ class InstallSchema implements InstallSchemaInterface
                 'ANSWER'
             )
             ->addColumn(
+                'customer_answers',
+                \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                '64k',
+                ['nullable' => false, 'default'=>''],
+                'ANSWER'
+            )
+            ->addColumn(
                 'status',
                 \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
                 null,

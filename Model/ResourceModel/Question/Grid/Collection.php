@@ -55,6 +55,12 @@ class Collection extends \Magento\Framework\View\Element\UiComponent\DataProvide
     {
         $this->getSelect()
             ->from(['main_table' => 'aht_question']);
+        //     ->join(
+        //     ['table1join'=>$this->getTable('aht_answer')],
+        //     'main_table.question_id = table1join.question_id'
+        // );
+        // echo $this->getSelect()->__toString();
+        // die; 
         return $this;
     }
 }

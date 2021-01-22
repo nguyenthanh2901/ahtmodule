@@ -60,7 +60,7 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
         if (isset($this->loadedData)) {
             return $this->loadedData;
         }
-        $this->collection->getSelect();
+        // $this->collection->getSelect()
         // ->join(
         //     ['table1join'=>$this->collection->getTable('aht_answer')],
         //     'main_table.question_id = table1join.question_id'
