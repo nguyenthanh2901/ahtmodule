@@ -53,7 +53,6 @@ class ListQuestion extends \Magento\Catalog\Block\Product\View
         ProductRepositoryInterface $productRepository,
         \Magento\Framework\Pricing\PriceCurrencyInterface $priceCurrency,
         \AHT\Question\Model\ResourceModel\Question\CollectionFactory $collectionFactory,
-
         array $data = []
     ) {
         $this->_collectionFactory = $collectionFactory;
@@ -105,14 +104,14 @@ class ListQuestion extends \Magento\Catalog\Block\Product\View
             ->getSelect()
             ->join(
                 ['table1join'=>$this->_collection->getTable('aht_answer')],
-                'main_table.question_id = table1join.question_id');
+                'main_table.question_id = table1join.question_id'
+            );
         }
         //  var_dump($this->_answerCollection->getData()); die;
 
         return $this->_answerCollection;
     }
 
-    
     /**
      * Get product id
      *
@@ -134,7 +133,7 @@ class ListQuestion extends \Magento\Catalog\Block\Product\View
     {
         return $this->_storeManager->getStore()->getBaseUrl();
     }
-    
+
     /**
      * Prepare product review list toolbar
      *

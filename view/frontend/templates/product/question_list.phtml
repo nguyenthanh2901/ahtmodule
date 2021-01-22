@@ -1,11 +1,11 @@
 <?php
 
 $item = $block->getQuestions();
-foreach ($item->getData() as $temp){
-   echo '<pre>';
-    print_r($temp);
-   echo '</pre>';
-} die;
+// foreach ($item->getData() as $temp){
+//    echo '<pre>';
+//     print_r($temp);
+//    echo '</pre>';
+// } die;
 $format = $block->getDateFormat() ?: \IntlDateFormatter::SHORT;
 ?>
 <?php if (count($item->getData())) : ?>

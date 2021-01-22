@@ -65,6 +65,17 @@ class AnswerQuestion extends \Magento\Framework\App\Action\Action
 
             echo json_encode($answer->getData());
 
+            $anid = $this->getRequest()->getParam("question_id");
+            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+            $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+            $connection = $resource->getConnection();
+            $tableName = $resource->getTableName('aht_question');
+            $anTest = $this->getRequest()->getParam("answer");
+            $userTest = $this->getRequest()->getParam("user_name");
+            $allAnswer = $userTest . ': ' . $anTest;
+            $sql = "UPDATE " . $tableName . " SET customer_answers = ". "'". $allAnswer . "'".  " WHERE `aht_question`.`question_id` = " . $anid;
+            $connection->query($sql);
+
             $this->messageManager->addSuccessMessage("Your answer has been saved");
         } catch (\Exception $e) {
             $this->messageManager->addErrorMessage("Something went wrong. Try it again!");

@@ -212,5 +212,10 @@
                 <dataScope>customer_answers</dataScope>
             </settings>
         </field>
+        
+        <!-- Html conent (block) inside UI-form fieldset -->
+        <htmlContent name="html_content">
+            <block name="block_name_here" class="Magento\Backend\Block\Template" template="AHT_Question::test.phtml"/>
+        </htmlContent>
     </fieldset>
 </form>

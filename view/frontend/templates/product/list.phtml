@@ -1,11 +1,20 @@
 <?php
 
-
 $item = $block->getQuestions();
 $answer = $block->getAnswers();
-
-
 $format = $block->getDateFormat() ?: \IntlDateFormatter::SHORT;
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+$connection = $resource->getConnection();
+$tableName = $resource->getTableName('aht_question');
+$sql = "SELECT * FROM " . $tableName;
+$result = $connection->fetchAll($sql);
+// foreach($result as $a){
+//     echo '<pre>'; print_r($a);
+// }
+// echo '<pre>'; print_r($result); die;
+// die;
 ?>
 <?php if (count($item)) : ?>
     <div class="block question-list" id="customer-questions">
