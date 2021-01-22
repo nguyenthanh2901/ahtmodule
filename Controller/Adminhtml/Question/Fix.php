@@ -89,8 +89,8 @@ class Fix extends \Magento\Backend\App\Action implements HttpGetActionInterface
         //     $id ? __('Edit Question') : __('New Block'),
         //     $id ? __('Edit Question') : __('New Block')
         // ); 
-        $resultPage->getConfig()->getTitle()->prepend(__('Question Detail'));
-        $resultPage->getConfig()->getTitle()->prepend($model->getId() ? 'Question Detail' : __('New Question'));
+        $resultPage->getConfig()->getTitle()->prepend(__('Question Details'));
+        $resultPage->getConfig()->getTitle()->prepend($model->getId() ? 'Question Details' : __('New Question'));
         return $resultPage;
     }
 }

@@ -39,7 +39,7 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
         $name,
         $primaryFieldName,
         $requestFieldName,
-        CollectionFactory $blockCollectionFactory,
+        CollectionFactory $colectionFactory,
         DataPersistorInterface $dataPersistor,
         QuestionFactory $questionFactory,
         \Magento\Catalog\Model\ProductRepository $productRepository,
@@ -47,7 +47,7 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
         array $meta = [],
         array $data = []
     ) {
-        $this->collection = $blockCollectionFactory->create();
+        $this->collection = $colectionFactory->create();
         $this->questionFactory = $questionFactory;
         $this->productRepository = $productRepository;
         $this->dataPersistor = $dataPersistor;
@@ -60,20 +60,25 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
         if (isset($this->loadedData)) {
             return $this->loadedData;
         }
-        $this->collection->getSelect()
-        ->join(
-            ['table1join'=>$this->collection->getTable('aht_answer')],
-            'main_table.question_id = table1join.question_id');
-        var_dump($this->collection->getData());die; 
-            
+        $this->collection->getSelect();
+        // ->join(
+        //     ['table1join'=>$this->collection->getTable('aht_answer')],
+        //     'main_table.question_id = table1join.question_id'
+        // );
+        // echo $this->collection->getSelect()->__toString();
+        // die;
         $items = $this->collection->getItems();
-
         foreach ($items as $block) {
             $this->loadedData[$block->getId()] = $block->getData();
         }
-        // echo '<pre>';
-        //     print_r($this->loadedData);
-        // echo '</pre>'; die;
+
+        $data = $this->dataPersistor->get('aht_question');
+        if (!empty($data)) {
+            $block = $this->collection->getNewEmptyItem();
+            $block->setData($data);
+            $this->loadedData[$block->getId()] = $block->getData();
+            $this->dataPersistor->clear('aht_question');
+        }
         return $this->loadedData;
     }
 }
